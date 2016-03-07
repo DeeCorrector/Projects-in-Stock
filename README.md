@@ -1,10 +1,10 @@
 # Projects-in-Stock
+
 DIKU - Softwareudvikling  
 
 Københavns Universitet - Datalogisk Institut.
 
 Mads, Herluf, Philip & Emil.
 
-Mappen "Documentation" vil indeholde planlægning, logbog og anden relevant. 
-
-Mappen "Produkt" vil indeholde kilde kode.
+The folder "Documentation" will hold logbooks, the distribution of work.
+The folder "Produkt" will hold all the source code for our program and webpage. 
