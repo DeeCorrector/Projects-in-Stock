@@ -11,5 +11,11 @@ def project_list(request):
     context = {
         "project_list":projects,
         }
+    return render(request,"web/project_list.html", context)
 
-    return render(request,"web/project_list.html",context)
+def project_detail(request, project_id):
+    proj = get_object_or_404(Project, id=project_id)
+    context = {
+        'project': proj
+    }
+    return render(request, 'web/project_detail.html', context)

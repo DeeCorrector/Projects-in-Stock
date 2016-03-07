@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Project list</title>
 </head>
 <body>
   <ul>
     {% for prj in project_list %}
-    <li>{{prj.title}}</li>
+    <li><a href="{% url 'project_detail' prj.id %}">{{prj.title}}<a></li>
     {% endfor %}
   </ul>
 </body>
