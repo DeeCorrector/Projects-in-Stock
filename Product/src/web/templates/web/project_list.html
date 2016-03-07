@@ -4,9 +4,10 @@
   <title>Project list</title>
 </head>
 <body>
+  <h2>Projects:</h2>
   <ul>
     {% for prj in project_list %}
-    <li><a href="{% url 'project_detail' prj.id %}">{{prj.title}}<a></li>
+    <li><a href="{% url 'project_detail' prj.id %}"><b>{{prj.title}}</b><a></li>
     {% endfor %}
   </ul>
 </body>
