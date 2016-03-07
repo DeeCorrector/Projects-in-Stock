@@ -11,3 +11,6 @@ class Project(models.Model):
     degree_choices = (('BSc','Bachelor'),('MS','Masters'))
     degree = models.CharField(max_length = 5, choices = degree_choices,default='BSc')
     topic = models.CharField(max_length = 120) #120 is up for discussion
+
+    def __str__(self):
+        return self.title

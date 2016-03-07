@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 #specify views
-#from .views import ()
+from web import views
 urlpatterns = [
-    url(r'^list$', "web.views.project_list"),
+    url(r'^projects$', views.project_list),
 ]
