@@ -5,10 +5,23 @@
   <title>Projects-in-Stock</title>
 </head>
 <body>
-  hej jeg eksisterer
   <div id="top-wrapper">
-    {%block content%}
-    {%endblock%}
+    <div id="header">
+      <a href="{% url "index" %}">
+        <div id="header-title">
+          Project stock
+        </div>
+      </a>
+      <ul id="header-menu">
+        <li class="menu-item"><a href="{% url "index" %}">Home</a></li>
+        <li class="menu-item"><a href="">Counselors</a></li>
+        <li class="menu-item"><a href="{% url "project_list" %}">Projects</a></li>
+      </ul>
+    </div>
+    <div id="content">
+      {%block content%}
+      {%endblock%}
+    </div>
   </div>
 
 </body>
