@@ -1,11 +1,9 @@
 {%extends "web/master.html" %}
 {% block content%}
-<div class="content">
-  <h2>Projects:</h2>
-  <ul>
+  <h1>List of projects</h1>
+  <div class="list-group">
     {% for prj in project_list %}
-    <li><a href="{% url 'project_detail' prj.id %}"><b>{{prj.title}}</b><a></li>
+    <a class="list-group-item" href="{% url 'project_detail' prj.id %}">{{prj.title}}</a>
     {% endfor %}
-  </ul>
-</div>
+  </div>
 {%endblock%}

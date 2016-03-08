@@ -1,23 +1,32 @@
 {%extends "web/master.html" %}
 {% block content%}
-  <div class="content">
-  <h1>{{ project.title }}</h1>
+  <h2><small>Project Details for</small> <br />{{ project.title }}</h2>
+<br />
+  <div class="row info-box">
 
-  <p>
-    <b>Topic:</b> {{ project.topic }}
-    <b>Degree:</b> {{ project.degree }}
-  </p>
+  <div class="col-md-4">
+    <h4>Topic</h4>
+    <h3>{{ project.topic }}</h3>
+  </div>
 
-  <p>
-    <b>Counselors:</b>
-    <ul>
+  <div class="col-md-4">
+    <h4>Degree</h4>
+    <h3>{{ project.degree }}</h3>
+  </div>
+
+  <div class="col-md-4">
+    <h4>Counselors</h4>
+      <div class="list-group">
       {% for c in project.counselor_set.all %}
-        <li><a href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a></li>
+        <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a>
       {% endfor %}
-    </ul>
-    <br>
-  </p>
+    </div>
+  </div>
+  </div>
 
+  <br />
+  <h3>Project Description</h3>
+  <div class="jumbotron">
   <p>{{ project.description }}</p>
-</div>
+  </div>
 {%endblock%}

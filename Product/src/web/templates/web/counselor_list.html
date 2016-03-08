@@ -1,10 +1,9 @@
 {%extends "web/master.html" %}
 {% block content%}
-<div class="content">
-  <ul>
+<h1>list of councelors</h1>
+  <div class="list-group">
   {% for c in counselors %}
-    <li><a href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a></li>
+    <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a>
   {% endfor %}
-  </ul>
 </div>
 {% endblock %}

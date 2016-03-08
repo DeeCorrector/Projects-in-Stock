@@ -1,28 +1,65 @@
+<!DOCTYPE html>
 <html>
 <head>
+  <!-- loading static files -->
   {% load staticfiles %}
+
+  <!--custom rules-->
   <link rel="stylesheet" type="text/css" href="{% static 'web/style.css' %}">
-  <title>Projects-in-Stock</title>
+
+  <!-- importing bootstrap-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-  <div id="top-wrapper">
-    <div id="header">
-      <a href="{% url "index" %}">
-        <div id="header-title">
-          <h1>Project stock</h1>
-        </div>
-      </a>
-      <ul id="header-menu">
-        <li class="menu-item"><a href="{% url "index" %}">Home</a></li>
-        <li class="menu-item"><a href="{% url "counselor_list" %}">Counselors</a></li>
-        <li class="menu-item"><a href="{% url "project_list" %}">Projects</a></li>
+<div class="container" id="site-wrapper">
+
+  <!--header-->
+  <div class="row" id="header-wrap">
+    <div class="col-md-9">
+      <h2><small>Univeristy of Copenhagen</small> <br />Project Bank</h2>
+    </div>
+    <div class ="col-md-3">
+      <ul class="nav nav-pills" id="menu">
+        <li><a href="{% url "index" %}">Home</a></li>
+        <li><a href="{% url "counselor_list" %}">Counselors</a></li>
+        <li><a href="{% url "project_list" %}">Projects</a></li>
       </ul>
     </div>
-    <div id="child">
-      {%block content%}
-      {%endblock%}
-    </div>
   </div>
+<div id="content">
+{%block content%}
+{%endblock%}
+</div>
 
+<div class="row" id="footer">
+  <div class="col-md-4">
+    <h3>Useful Links</h3>
+      <a href="{% url 'admin:index' %}">Admin Panel</a><br />
+      <a href="https://docs.djangoproject.com/en/1.9/">Django Documentation</a><br />
+      <a href="http://getbootstrap.com/components/">Bootstrap Documentation</a><br />
+      <a href="https://github.com/PhilipFraDIKU/Projects-in-Stock">Github Repo</a><br /><br />
+
+  </div>
+  <div class="col-md-4">
+    <h3>Project by</h3>
+      <h5>Philip Girelli</h5>
+      <h5>Herluf Baggesen</h5>
+      <h5>Mads Buchmann</h5>
+
+  </div>
+  <div class="col-md-4">
+  <h3>Info</h3>
+  <p>
+   This page is not associated with the offical systems of Copenhagen University, and is the result of a student project.
+  </p>
+  </div>
+</div>
+</div>
 </body>
 </html>
