@@ -1,13 +1,9 @@
-<html>
-<head>
-  <title>Home</title>
-</head>
-<body>
+{%extends "web/master.html" %}
+{% block content%}
   <h1>List of current pages</h1>
   <h2>(the list doesn't update itself)</h2>
   <ul>
     <li><a href="{%url 'index' %}">Index <i>(You're here)</i></a></li>
     <li><a href="{%url 'project_list' %}">Project List</a></li>
   </ul>
-</body>
-</html>
+{%endblock%}
