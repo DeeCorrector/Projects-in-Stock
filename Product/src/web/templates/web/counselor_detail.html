@@ -1,0 +1,22 @@
+{%extends "web/master.html" %}
+{% block content%}
+<h1>{{ counselor.name }}</h1>
+
+<p>
+  <b>study area:</b> {{ counselor.study_area }} <br>
+  <b>Email:</b> {{ counselor.email }} <br>
+  <b>Office:</b> {{ counselor.office }}
+</p>
+
+<p>
+  <b>Projects:</b>
+  <ul>
+    {% for p in counselor.projects.all %}
+      <li><a href="{% url "project_detail" p.id %}">{{ p.title }}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+</p>
+
+<p>{{ project.description }}</p>
+{% endblock %}

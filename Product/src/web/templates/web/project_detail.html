@@ -8,7 +8,13 @@
   </p>
 
   <p>
-    <b>Counselors:</b> <i>Not yet implemented</i>
+    <b>Counselors:</b>
+    <ul>
+      {% for c in project.counselor_set.all %}
+        <li><a href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a></li>
+      {% endfor %}
+    </ul>
+    <br>
   </p>
 
   <p>{{ project.description }}</p>

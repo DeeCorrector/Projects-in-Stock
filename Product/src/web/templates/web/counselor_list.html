@@ -1,0 +1,8 @@
+{%extends "web/master.html" %}
+{% block content%}
+  <ul>
+  {% for c in counselors %}
+    <li><a href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}
