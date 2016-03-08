@@ -67,13 +67,17 @@ body{
 /*header area end*/
 
 /*content area*/
-#content{
+#child{
   margin-top: 60px;
+}
+
+.content {
+  margin : 20px;
 }
 
 .big-image{
   background-image : url("http://www.citylit.ac.uk/media/catalog/category/academic_writing.jpg");
-  background-size : 1400px auto;
+  background-size : 1900px auto;
   width : 100%;
   height : 300px;
   background-color : red;
