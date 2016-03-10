@@ -1,0 +1,51 @@
+{% extends "edit_info/submenu.html" %}
+{% block editcontent %}
+
+<div class="row info-box">
+
+  <div class="col-md-4">
+    <h2><small>Counselor details for</small><br />{{ counselor.name }}</h2>
+  </div>
+
+  <div class="col-md-4">
+    <h2><small>Area of study</small><br />{{ counselor.study_area }}</h2>
+  </div>
+
+  <div class="col-md-4">
+    <br />
+    <h4><small>Email:  </small>{{ counselor.email }}</h4>
+    <h4><small>Office:  </small>{{ counselor.office }}</h4>
+  </div>
+
+</div>
+  <h2>Projects</h2>
+<div style="position: relative; top: -30px;">
+  <div class="row">
+    <div class="col-md-4">
+      <h3><small>Title</small></h3>
+    </div>
+
+    <div class="col-md-4">
+      <h3><small>Topic</small></h3>
+    </div>
+
+    <div class="col-md-4">
+      <h3><small>Degree</small></h3>
+    </div>
+  </div>
+
+  <div class="list-group" id="counselor_projects_list">
+    {% for p in counselor.projects.all%}
+    <a class="list-group-item" href="{% url 'project_detail' p.id %}">
+      <div class="row">
+        <div class="col-md-4">{{ p.title }}</div>
+        <div class="col-md-4">{{ p.topic }}</div>
+        <div class="col-md-4">{{ p.degree }}</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}
