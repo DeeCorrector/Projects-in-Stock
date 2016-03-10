@@ -18,6 +18,13 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^',include('web.urls')),
-    url(r'^edit/',include('edit_info.urls')),
+    url(r'^', include('web.urls')),
+    url(r'^edit/', include('edit_info.urls')),
+
+    #login urls
+    url(r'^accounts/login/$', edit_views.login, name='login'),
+    url(r'^accounts/auth_login/$', edit_views.auth_login),
+    url(r'^accounts/logout/$', edit_views.logout, name='logout'),
+    url(r'^accounts/loggedin/$', edit_views.logged_in, name='logged_in'),
+    url(r'^accounts/invalidlogin/$', edit_views.invalid_login, name='invalid_login'),
 ]
