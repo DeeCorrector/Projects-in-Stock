@@ -4,7 +4,7 @@ DIKU - Softwareudvikling
 
 Københavns Universitet - Datalogisk Institut.
 
-Mads, Herluf, Philip & Emil.
+Mads, Herluf & Philip.
 
 The folder "Documentation" will hold logbooks, the distribution of work.
 
