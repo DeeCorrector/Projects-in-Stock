@@ -7,6 +7,7 @@ from web.models import Project, Counselor
 def edit_hub(request, counselor_id):
     c = get_object_or_404(Counselor, id=counselor_id)
     context = {
-            "counselor" : c,
+             'counselor': c,
     }
+    print(c.name)
     return render(request, "edit_info/edit_hub.html", context)
