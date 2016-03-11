@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
 from web.models import Project, Counselor
 
-# Create your views here.
-
+@login_required
 def edit_hub(request, counselor_id):
     c = get_object_or_404(Counselor, id=counselor_id)
     context = {'counselor': c, 'username': request.user.username,}
@@ -41,11 +41,3 @@ def auth_login(request):
 def logout(request):
     auth.logout(request)
     return redirect('index')
-
-#for testing, displays a succesful login screen
-def logged_in(request):
-    return render(request, 'edit_info/logged_in.html', {"username": request.user.username})
-
-#displays the login screen with an error
-def invalid_login(request):
-    return render(request, 'edit_info/login.html', {"bad_login": True})

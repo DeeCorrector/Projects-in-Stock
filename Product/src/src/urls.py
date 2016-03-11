@@ -28,6 +28,4 @@ urlpatterns = [
     url(r'^accounts/login/$', edit_views.login, name='login'),
     url(r'^accounts/auth_login/$', edit_views.auth_login),
     url(r'^accounts/logout/$', edit_views.logout, name='logout'),
-    url(r'^accounts/loggedin/$', edit_views.logged_in, name='logged_in'),
-    url(r'^accounts/invalidlogin/$', edit_views.invalid_login, name='invalid_login'),
 ]
