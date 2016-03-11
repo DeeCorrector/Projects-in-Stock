@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+#import the edit_info views
+from edit_info import views as edit_views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('web.urls')),

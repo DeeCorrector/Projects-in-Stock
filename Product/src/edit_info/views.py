@@ -7,9 +7,7 @@ from web.models import Project, Counselor
 
 def edit_hub(request, counselor_id):
     c = get_object_or_404(Counselor, id=counselor_id)
-    context = {
-             'counselor': c,
-    }
+    context = {'counselor': c, 'username': request.user.username,}
     print(c.name)
     return render(request, "edit_info/edit_hub.html", context)
 
@@ -31,15 +29,18 @@ def auth_login(request):
         #login user
         auth.login(request, user)
         #redirect to logged_in url.
-        return redirect('logged_in')
+
+        #Fetch real counselor id here!
+        c_id = 2
+        return redirect('edit hub', counselor_id=c_id)
     else:
         #if user cant be authenticated redirect to invalid login
-        return redirect('invalid_login')
+        return render(request, 'edit_info/login.html', {"bad_login": True})
 
 #logs user out
 def logout(request):
     auth.logout(request)
-    return render(request, 'edit_info/logged_out.html', {})
+    return redirect('index')
 
 #for testing, displays a succesful login screen
 def logged_in(request):

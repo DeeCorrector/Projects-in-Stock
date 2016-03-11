@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <body>
+{% extends "web/master.html" %}
+{% block content %}
+
+<h2><small>Login here to edit you account details</small></h2>
     {% if bad_login %}
-      <p style="color:red;">Not a recognized username or password!</p>
+      <p style="color:red;">Invalid username or password</p>
     {% endif %}
 
-    <form action='/accounts/auth_login/' method='post'>{% csrf_token %}
+<form action='/accounts/auth_login/' method='post'> {% csrf_token %}
+  <div class="row">
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+    </div>
 
-      <input type="text" name="username" value="" id="username" placeholder="Username">
-      <br />
+    <div class="col-md-3">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+    </div>
 
-      <input type="password" name="password" value="" id="password" placeholder="Password">
-
+    <div class="col-md-1">
       <input type="submit" value="Login" />
-    </form>
-  </body>
-</html>
+    </div>
+  </div>
+</form>
+{% endblock %}
