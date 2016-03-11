@@ -13,12 +13,13 @@ class Project(models.Model):
         return self.title
 
 class Counselor(models.Model):
+    readonly_fields=('account_id',)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     study_area = models.CharField(max_length=255)
     office = models.CharField(max_length=255)
     projects = models.ManyToManyField(Project)
-
+    account_id = models.IntegerField()
 
     def __str__(self):
         return self.name
