@@ -19,7 +19,10 @@ class Counselor(models.Model):
     study_area = models.CharField(max_length=255)
     office = models.CharField(max_length=255)
     projects = models.ManyToManyField(Project)
-    account_id = models.IntegerField()
+    account_id = models.IntegerField(default=-1)
 
     def __str__(self):
         return self.name
+
+    def is_registered(self):
+        return not self.account_id == -1

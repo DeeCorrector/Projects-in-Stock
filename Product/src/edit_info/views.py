@@ -10,9 +10,11 @@ from django.template.context_processors import csrf
 from web.models import Project, Counselor
 
 @login_required
-def edit_hub(request, counselor_id):
-    c = get_object_or_404(Counselor, id=counselor_id)
+def edit_hub(request):
+    c = get_object_or_404(Counselor, account_id=request.user.id)
     context = {'counselor': c,}
+
+    print(c.name, "has user id:", request.user.id, "and username:", request.user.username)
     return render(request, "edit_info/edit_hub.html", context)
 
 # Login Views:
@@ -34,12 +36,8 @@ def auth_login(request):
         #login user
         auth.login(request, user)
 
-        #Testing here!
-        c = get_object_or_404(Counselor, account_id=request.user.id)
-        #Undiscovered area!
-
         #On succesful login redirect to edithub
-        return redirect('edit hub', counselor_id=c.id)
+        return redirect('edit hub')
     else:
         #if user cant be authenticated render invalid login
         return render(request, 'edit_info/login.html', {"bad_login": True})
