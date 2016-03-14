@@ -15,6 +15,13 @@ def edit_hub(request, counselor_id):
     context = {'counselor': c,}
     return render(request, "edit_info/edit_hub.html", context)
 
+#Lets user create posts
+@login_required
+def create(request, counselor_id):
+    c = get_object_or_404(Counselor, id=counselor_id)
+    context = {'counselor': c,}
+    return render(request, "edit_info/create_project.html", context)
+
 # Login Views:
 #Displays login screen
 def login(request):

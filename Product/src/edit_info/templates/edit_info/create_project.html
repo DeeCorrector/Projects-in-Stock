@@ -1,0 +1,24 @@
+{% extends "edit_info/submenu.html" %}
+{% block editcontent %}
+<h3>Create a new project</h3>
+<p>Use the form to submit a new project to the project bank.</p>
+<form role="form">
+  <label for="projectitle">What is the title of the project?</label><br />
+  <input type="text" id="projecttitle" Value="Title Here"/>
+  <br /><br />
+  <label for="projecttopic">What is the topic of the project <br /><small>(Neuroscience, Quantum Computing, Image Processing etc...)</small></label><br />
+  <input type="text" id="projecttopic" Value="Topic Here"/>
+  <br /><br />
+  <label for="projectdescription">Describe the project</label>
+  <textarea class="form-control" rows="8" id="projectdescription">Description Here</textarea>
+  <br /> <br />
+  <label for="projectdegree">What degree is the project meant for?</label>
+  <select class="form-control" id="projectdegree">
+    <option>Bachelor</option>
+    <option>Masters</option>
+  </select>
+  <input type="hidden" value="{{counselor.id}}" /><br /><br />
+  <button type="submit" class="btn btn-default">Submit Project</button>
+</form>
+
+{% endblock %}
