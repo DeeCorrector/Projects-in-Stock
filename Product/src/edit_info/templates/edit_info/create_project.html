@@ -2,7 +2,7 @@
 {% block editcontent %}
 <h3>Create a new project</h3>
 <p>Use the form to submit a new project to the project bank.</p>
-<form role="form">
+<form role="form"> {% csrf_token %}
   <label for="projectitle">What is the title of the project?</label><br />
   <input type="text" id="projecttitle" Value="Title Here"/>
   <br /><br />

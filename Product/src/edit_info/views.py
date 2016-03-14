@@ -14,14 +14,14 @@ def edit_hub(request):
     c = get_object_or_404(Counselor, account_id=request.user.id)
     context = {'counselor': c,}
 
-    print(c.name, "has user id:", request.user.id, "and username:", request.user.username)
     return render(request, "edit_info/edit_hub.html", context)
 
 #Lets user create posts
 @login_required
-def create(request, counselor_id):
-    c = get_object_or_404(Counselor, id=counselor_id)
+def create(request):
+    c = get_object_or_404(Counselor, account_id=request.user.id)
     context = {'counselor': c,}
+    context.update(csrf(request))
     return render(request, "edit_info/create_project.html", context)
 
 # Login Views:
