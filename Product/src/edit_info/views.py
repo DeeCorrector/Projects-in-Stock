@@ -27,10 +27,13 @@ def create(request):
 # Login Views:
 #Displays login screen
 def login(request):
-    context = {"bad_login": False}
-    #security stuff
-    context.update(csrf(request))
-    return render(request, 'edit_info/login.html', context)
+    if not request.user.is_authenticated():
+        context = {"bad_login": False}
+        #security stuff
+        context.update(csrf(request))
+        return render(request, 'edit_info/login.html', context)
+    else:
+        return redirect('edit hub')
 
 #authenticates login request
 def auth_login(request):
