@@ -9,6 +9,10 @@ from django.template.context_processors import csrf
 #importing models
 from web.models import Project, Counselor
 
+#importing forms
+from .forms import CreateProjectForm
+
+#Overview of all the project
 @login_required
 def edit_hub(request):
     c = get_object_or_404(Counselor, account_id=request.user.id)
@@ -19,8 +23,29 @@ def edit_hub(request):
 #Lets user create posts
 @login_required
 def create(request):
-    c = get_object_or_404(Counselor, account_id=request.user.id)
-    context = {'counselor': c,}
+    #getting necessary data
+    counselor = get_object_or_404(Counselor, account_id=request.user.id)
+    #if the request contains POST info validate it, else no arguments
+    form = CreateProjectForm(request.POST or None)
+
+
+    #if a form is being submitted
+    if form.is_valid():
+      instance = form.save(commit=False)
+      instance.save()
+      counselor.projects.add(instance)
+      context = {
+        'counselor': counselor,
+        'CreateForm': form,
+        'prj': instance
+        }
+      return render(request, "edit_info/post_succes.html", context)
+
+    #serves the form
+    context = {
+      'counselor': counselor,
+      'CreateForm': form,
+      }
     context.update(csrf(request))
     return render(request, "edit_info/create_project.html", context)
 

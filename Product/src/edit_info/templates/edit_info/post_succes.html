@@ -1,0 +1,10 @@
+{% extends "edit_info/submenu.html" %}
+{% block editcontent %}
+<script>
+var delay = 1200; //Your delay in milliseconds
+
+setTimeout(function(){ window.location = "{% url 'project_detail' prj.id %}"; }, delay);
+</script>
+<h1>Project was sucessfully submitted!<br /> <small>You will be automatically redirected</small></h1>
+
+{% endblock %}
