@@ -21,28 +21,31 @@
   <h2>Projects</h2>
 <div style="position: relative; top: -30px;">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h3><small>Title</small></h3>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h3><small>Topic</small></h3>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h3><small>Degree</small></h3>
     </div>
   </div>
 
   <div class="list-group" id="counselor_projects_list">
     {% for p in counselor.projects.all%}
-    <a class="list-group-item" href="{% url 'project_detail' p.id %}">
-      <div class="row">
-        <div class="col-md-4">{{ p.title }}</div>
-        <div class="col-md-4">{{ p.topic }}</div>
-        <div class="col-md-4">{{ p.degree }}</div>
+    <!--<a class="list-group-item" href="{% url 'project_detail' p.id %}">-->
+      <div class="row list-group-item">
+        <a href="{% url 'project_detail' p.id %}">
+          <div class="col-md-3">{{ p.title }}</div>
+          <div class="col-md-3">{{ p.topic }}</div>
+          <div class="col-md-3">{{ p.degree }}</div>
+        </a>
+        <div class="col-md-3"><a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a></div>
       </div>
-    </a>
+  <!--</a>-->
     {% endfor %}
   </div>
 </div>

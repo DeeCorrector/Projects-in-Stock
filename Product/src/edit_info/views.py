@@ -49,6 +49,27 @@ def create(request):
     context.update(csrf(request))
     return render(request, "edit_info/create_project.html", context)
 
+#View for editing already existing projects
+@login_required
+def edit_project(request, project_id):
+    instance = get_object_or_404(Project, id=project_id)
+    form = CreateProjectForm(request.POST or None, instance=instance)
+
+    #if a form is being submitted
+    if (form.is_valid()) & (request.method == "POST"):
+      instance.save()
+      context = {
+        'prj': instance
+        }
+      return render(request, "edit_info/post_succes.html", context)
+
+    #serves the form
+    context = {
+        "form": form,
+      }
+    context.update(csrf(request))
+    return render(request, "edit_info/edit_project.html", context)
+
 # Login Views:
 #Displays login screen
 def login(request):

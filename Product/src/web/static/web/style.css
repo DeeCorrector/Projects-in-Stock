@@ -62,3 +62,10 @@ html, body {
   border-left : none;
 
 }
+
+.btn-edit {
+  width : 70%;
+  border: none;
+  border-radius: 5px;
+  float: right;
+}

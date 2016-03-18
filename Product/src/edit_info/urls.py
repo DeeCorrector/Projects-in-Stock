@@ -5,5 +5,5 @@ from edit_info import views
 urlpatterns = [
     url(r'^profile/$', views.edit_hub, name="edit hub"),
     url(r'^profile/create/$', views.create, name="create project"),
-
+    url(r'^project/edit/(?P<project_id>[0-9]+)$', views.edit_project, name="edit project"),
 ]
