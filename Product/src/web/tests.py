@@ -43,7 +43,7 @@ class Test_project_detail_view(TestCase):
         self.assertTrue(request.status_code == 404)
 
 class Test_counselor_list_view(TestCase):
-    def Test_counselor_list_response(self):
+    def test_counselor_list_response(self):
         request = self.client.get(reverse('counselor_list'))
         self.assertTrue(request.status_code == 200)
         self.assertEquals(request.resolver_match.func, counselor_list)
@@ -53,11 +53,11 @@ class Test_counselor_detail_view(TestCase):
         c = Counselor()
         c.save()
 
-    def Test_counselor_detail_response(self):
+    def test_counselor_detail_response(self):
         request = self.client.get(reverse('counselor_detail', args=[1]))
         self.assertTrue(request.status_code == 200)
         self.assertEquals(request.resolver_match.func, counselor_detail)
 
-    def Test_counselor_detail_404(self):
+    def test_counselor_detail_404(self):
         request = self.client.get(reverse('counselor_detail', args=[2]))
         self.assertTrue(request.status_code == 404)

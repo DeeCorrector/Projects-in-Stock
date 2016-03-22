@@ -1,7 +1,7 @@
 #Imports to render pages, redirect and give error404
 from django.shortcuts import render, get_object_or_404, redirect
 
-#Login imports
+#
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
@@ -20,7 +20,7 @@ def edit_hub(request):
 
     return render(request, "edit_info/edit_hub.html", context)
 
-#Lets user create posts
+#Lets user create 
 @login_required
 def create(request):
     #getting necessary data
