@@ -3,15 +3,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from .views import *
 
-#Views testing
-######Reference#######
-#class Test_index_view(TestCase):
-#    def test_index_response(self):
-#        request = self.client.get(reverse('index'))
-#        self.assertTrue(request.status_code == 200)
-#        self.assertEquals(request.resolver_match.func, index)
-######################
-
 class Test_login_view(TestCase):
     def test_login_response(self):
         request = self.client.get(reverse('login'))
@@ -19,14 +10,81 @@ class Test_login_view(TestCase):
         self.assertEquals(request.resolver_match.func, login)
 
 
+class Test_edit_hub_view(TestCase):
+    def test_edithub_redirect(self):
+        request = self.client.get(reverse("edit hub"))
+        self.assertRedirects(request, "/accounts/login/?next=/edit/profile/")
+
+    def test_edithub_login(self):
+        #simulate user login
+        u = User.objects.create_user(username="Mock", password="secret")
+        c = Counselor.objects.create(name="Mock", account_id=u.id)
+        p = Project.objects.create(title="Mock")
+        c.projects.add(p)
+        self.client.login(username="Mock", password="secret")
+
+        request = self.client.get(reverse("edit hub"))
+        self.assertTrue(request.status_code == 200)
+        self.assertEquals(request.resolver_match.func, edit_hub)
+
+
+class Test_create_project_view(TestCase):
+    def test_create_project_redirect(self):
+        request = self.client.get(reverse("create project"))
+        self.assertRedirects(request, "/accounts/login/?next=/edit/profile/create/")
+
+    def test_create_project_login(self):
+        #simulate user login using Mock
+        u = User.objects.create_user(username="Mock", password="secret")
+        Counselor.objects.create(name="Mock", account_id=u.id)
+        self.client.login(username="Mock", password="secret")
+
+        request = self.client.get(reverse("create project"))
+        self.assertTrue(request.status_code == 200)
+        self.assertEquals(request.resolver_match.func, create)
+
+class Test_edit_project_view(TestCase):
+    def test_edit_project_redirect(self):
+        request = self.client.get(reverse("edit project" , args=(1,)))
+        self.assertRedirects(request, "/accounts/login/?next=/edit/project/edit/1")
+
+    def test_edit_project_login(self):
+        #simulate user login using Mocks
+        u = User.objects.create_user(username="Mock", password="secret")
+        c = Counselor.objects.create(name="Mock", account_id=u.id)
+        p = Project.objects.create(title="Mock")
+        c.projects.add(p)
+        self.client.login(username="Mock", password="secret")
+
+        request = self.client.get(reverse("edit project", args=(u.id,)))
+        self.assertTrue(request.status_code == 200)
+        self.assertEquals(request.resolver_match.func, edit_project)
+
 class Test_logout_view(TestCase):
     def test_logout_redirect(self):
-        #simulate user login
-        User.objects.create_user(username="mock", password="secret")
-        self.client.login(username="mock", password="secret")
-        #test response
+        #simulate user login, using Mock
+        User.objects.create_user(username="Mock", password="secret")
+        self.client.login(username="Mock", password="secret")
+
         request = self.client.get(reverse('logout'))
         self.assertTrue(request.status_code == 302)
         self.assertEquals(request.resolver_match.func, logout)
-        #test redirect
         self.assertRedirects(request, reverse("index"))
+
+class Test_auth_login(TestCase):
+    def test_login_response(self):
+        #simulate user login using Mocks
+        u = User.objects.create_user(username="Mock", password="secret")
+        c = Counselor.objects.create(name="Mock", account_id=u.id)
+        p = Project.objects.create(title="Mock")
+        c.projects.add(p)
+        self.client.login(username="Mock", password="secret")
+
+        request = self.client.post(reverse("auth_login"), {"username": "Mock", "password": "secret"})
+        self.assertRedirects(request, reverse("edit hub"))
+        self.assertTrue(request.status_code == 302)
+
+    def test_badlogin_response(self):
+        request = self.client.post(reverse("auth_login"), {"username": "Mock", "password": "notCorrect"})
+        self.assertTrue(request.status_code == 200)
+        self.assertTrue(request.context["bad_login"])
