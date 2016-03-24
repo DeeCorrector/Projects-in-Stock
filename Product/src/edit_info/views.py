@@ -70,6 +70,13 @@ def edit_project(request, project_id):
     context.update(csrf(request))
     return render(request, "edit_info/edit_project.html", context)
 
+#view for deleting an already existing project_id
+@login_required
+def delete_project(request, project_id):
+    instance = get_object_or_404(Project, id=project_id)
+    instance.delete()
+    return redirect('edit hub')
+
 #View for editing already existing projects
 @login_required
 def edit_counselor(request, counselor_id):

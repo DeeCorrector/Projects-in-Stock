@@ -44,7 +44,12 @@
           <div class="col-md-3">{{ p.topic }}</div>
           <div class="col-md-3">{{ p.degree }}</div>
         </a>
-        <div class="col-md-3"><a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a></div>
+        <div class="col-md-3">
+          <span class="right">
+            <a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a>
+            <a href="{%url 'delete project' p.id%}"><button class="btn-primary btn-delete">Delete</button></a>
+          </span>
+        </div>
       </div>
   <!--</a>-->
     {% endfor %}
