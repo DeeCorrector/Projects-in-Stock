@@ -10,7 +10,7 @@ from django.template.context_processors import csrf
 from web.models import Project, Counselor
 
 #importing forms
-from .forms import CreateProjectForm
+from .forms import CreateProjectForm, EditCounselorInfoForm
 
 #Overview of all the project
 @login_required
@@ -20,7 +20,7 @@ def edit_hub(request):
 
     return render(request, "edit_info/edit_hub.html", context)
 
-#Lets user create 
+#Lets user create
 @login_required
 def create(request):
     #getting necessary data
@@ -69,6 +69,25 @@ def edit_project(request, project_id):
       }
     context.update(csrf(request))
     return render(request, "edit_info/edit_project.html", context)
+
+#View for editing already existing projects
+@login_required
+def edit_counselor(request, counselor_id):
+    instance = get_object_or_404(Counselor, id=counselor_id)
+    form = EditCounselorInfoForm(request.POST or None, instance=instance)
+
+    #if a form is being submitted
+    if (form.is_valid()) & (request.method == "POST"):
+      instance.save()
+      return redirect('edit hub')
+
+    #serves the form
+    context = {
+        "counselor":instance,
+        "form": form,
+      }
+    context.update(csrf(request))
+    return render(request, "edit_info/edit_counselor.html", context)
 
 # Login Views:
 #Displays login screen

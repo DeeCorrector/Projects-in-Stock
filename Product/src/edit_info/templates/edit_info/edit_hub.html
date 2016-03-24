@@ -1,6 +1,7 @@
 {% extends "edit_info/submenu.html" %}
 {% block editcontent %}
 <h3>Welcome {{ counselor.name }} here you can edit your details</h3><br />
+<a style="float : right;" href="{% url "edit counselor" counselor.id%}">Edit Info</a>
 <div class="row info-box">
 
   <div class="col-md-4">
