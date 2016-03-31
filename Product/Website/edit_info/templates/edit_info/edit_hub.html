@@ -1,6 +1,7 @@
 {% extends "edit_info/submenu.html" %}
 {% block editcontent %}
 <h3>Welcome {{ counselor.name }} here you can edit your details</h3><br />
+<a style="float : right;" href="{% url "edit counselor" counselor.id%}">Edit Info</a>
 <div class="row info-box">
 
   <div class="col-md-4">
@@ -43,7 +44,12 @@
           <div class="col-md-3">{{ p.topic }}</div>
           <div class="col-md-3">{{ p.degree }}</div>
         </a>
-        <div class="col-md-3"><a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a></div>
+        <div class="col-md-3">
+          <span class="right">
+            <a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a>
+            <a href="{%url 'delete project' p.id%}"><button class="btn-primary btn-delete">Delete</button></a>
+          </span>
+        </div>
       </div>
   <!--</a>-->
     {% endfor %}
