@@ -31,5 +31,6 @@ class Test_Request(ut.TestCase):
     def test_inherits_interface(self):
         self.assertEquals(type(self.instance), IRequest)
 
+
 if __name__ == "__main__":
     ut.main()
