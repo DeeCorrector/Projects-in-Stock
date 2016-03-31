@@ -12,6 +12,7 @@ class Request(IRequest):
         response = requests.get(self.url)
         return(response.text)
 
+<<<<<<< HEAD
 """Interface for the parser"""
 class IParser():
     def parse_html(self):
@@ -25,4 +26,6 @@ class Parser(IParser):
 
     def parse_html(self):
         return {}
-
+=======
+   
+>>>>>>> f51635fbd6746082ecf45ab05dc3aba10b69bc49
