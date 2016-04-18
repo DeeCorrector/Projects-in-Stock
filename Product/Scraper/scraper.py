@@ -1,5 +1,9 @@
 #import the regular expressions
 import re
+
+#import requesting package
+import requests
+
 #interface for request element
 class IRequest():
   def get_html(self):
@@ -42,3 +46,22 @@ class Parser(IParser):
             #Replace dictonary element with the new list
             self.result_dictonary[key] = cleaned_matches_list
         return self.result_dictonary
+
+class _Scraper():
+    def __init__(self, _url, _matching_dict):
+        self.requester = Request(_url)
+        self.parser = Parser("No html retrived yet!", _matching_dict)
+
+    def request(self):
+        self.parser.html = self.requester.get_html()
+
+    def parse(self):
+        return self.parser.parse_html()
+
+class Scraper(_Scraper):
+    def __init__(self, _url, _matching_dict):
+        super().__init__(_url,_matching_dict)
+
+    def scrape(self):
+        self.request()
+        return self.parse()
