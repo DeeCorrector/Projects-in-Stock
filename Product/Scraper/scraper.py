@@ -23,6 +23,7 @@ class Parser(IParser):
     def __init__(self,_html,_match_dict):
         self.html = _html
         self.matching_dictonary = _match_dict
+        self.result_dictonary = _match_dict
 
     def parse_html(self):
         #removes the html tags from a given string
@@ -39,12 +40,5 @@ class Parser(IParser):
                 cleaned_matches_list.append(clean_string)
 
             #Replace dictonary element with the new list
-            self.matching_dictonary[key] = cleaned_matches_list
-
-if __name__ == "__main__":
-    match_dict = {"link":"<a href.*?>.*?</a>",
-                  "header":"<h1 id class>.*?</h1>"}
-    parser = Parser("<h1 id class>Dette er en header</h1> <a href='google.com'>link</a><h1 id class>Anden<a href>link2</a> Header</h1>",match_dict)
-    parser.parse_html()
-    result = parser.matching_dictonary
-    print(result)
+            self.result_dictonary[key] = cleaned_matches_list
+        return self.result_dictonary
