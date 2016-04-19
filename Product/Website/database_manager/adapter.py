@@ -1,10 +1,16 @@
-from ...CommandManager.commandmanager import CommandManager, ICommand
-from Scraper.scraper import Scraper
+#To make the commandmanager and the scraper importable,
+#run "export PYTHONPATH="${PYTHONPATH}:PATH/TO/PROJECTS-IN-STOCK/Product/CommandManager/:PATH/TO/PROJECTS-IN-STOCK/Product/Scraper/""
+#or if you are using virtualenv add the line to the activate file and reactivate the enviornment.
+from commandmanager import CommandManager,ICommand
+from scraper import Scraper
 import re
 import datetime
 
 #for testing purposes
-counselor_match_dict = {"header": r"<h1 class='site-title'>.*?</h1>"}
+counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
+                        "email": "<a href=\"mailto:.*\" .*>.*</a>",
+                        "office": "<div class=\"adress\"><p>.*</p><p>.*</p></div>",
+                        "study area": "<h2 class=\"title\"><span>.*</span></h2>",}
 
 class ScrapeCommand (ICommand):
     def __init__(self,_executionTime, _url, _match_dict, _target ):
@@ -15,7 +21,7 @@ class ScrapeCommand (ICommand):
 
     def execute(self):
         my_scraper = Scraper(self.url,self.matching_dict)
-        result = my_scraper.Scrape()
+        result = my_scraper.scrape()
         self.target(result)
 
 class UpdateAllCounselors(ICommand):
@@ -34,7 +40,7 @@ class Adapter():
     #do db_update now
     #schedule db_update at specific point in time
     def schedule_update(self,datetime,counselor):
-        command = self.my_commandFactory.new_ScrapeCommand(datetime,couselor.url,counselor_match_dict,self.updatedb)
+        command = self.my_commandFactory.new_ScrapeCommand(datetime,counselor.url,counselor_match_dict,self.updatedb)
         self.my_commandmanager.enqueue_command(command)
 
     def updatedb(self,info_dict):
@@ -56,4 +62,5 @@ class MockCounselor():
 
 if __name__ == "__main__":
     a = Adapter()
-    a.schedule_update(datetime.datetime.now() + datetime.timedelta(seconds=1),MockCounselor("http://www.test.org/"))
+    c = MockCounselor("http://diku.dk/english/staff/?pure=en/persons/110448")
+    a.schedule_update(datetime.datetime.now() + datetime.timedelta(seconds=1),c)
