@@ -9,8 +9,8 @@ import datetime
 #for testing purposes
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<a href=\"mailto:.*\" .*>.*</a>",
-                        "office": "<div class=\"adress\"><p>.*</p><p>.*</p></div>",
-                        "study area": "<h2 class=\"title\"><span>.*</span></h2>",}
+                        "office": "<div class=\"address\"><p>.*</p></div>",
+                        "study area": "<h2 class=\"title\">Member of:</h2><ul class=\"relations organisations\">.*</ul>"}
 
 class ScrapeCommand (ICommand):
     def __init__(self,_executionTime, _url, _match_dict, _target ):
@@ -62,5 +62,5 @@ class MockCounselor():
 
 if __name__ == "__main__":
     a = Adapter()
-    c = MockCounselor("http://diku.dk/english/staff/?pure=en/persons/110448")
-    a.schedule_update(datetime.datetime.now() + datetime.timedelta(seconds=1),c)
+    c = MockCounselor("http://diku.dk/english/staff/?pure=en/persons/431157")
+    a.schedule_update(datetime.datetime.now(),c)
