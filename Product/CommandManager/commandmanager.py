@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 from threading import Timer
+import os
+
 
 class ICommand():
     def __init__(self, _executionTime):
@@ -57,12 +59,11 @@ class PrintCommand(ICommand):
         print (self.message)
 
 class ShutdownCommand(ICommand):
-    def __init__(self,_executionTime):
-        super().__init__(_executionTime)
+
+    def execute(self):
+        os.system("shutdown now -h")
 
 
 if __name__ == "__main__":
     myCommander = CommandManager()
-    myCommander.enqueue_command( PrintCommand("Dicks", datetime.now() + timedelta(seconds=3)) )
-    myCommander.enqueue_command( PrintCommand("Dongers", datetime.now() + timedelta(seconds=6)) )
-    myCommander.enqueue_command( PrintCommand("and Dildos", datetime.now() + timedelta(seconds=9)) )
+    myCommander.enqueue_command( ShutdownCommand(datetime.now() + timedelta(seconds=15)) )
