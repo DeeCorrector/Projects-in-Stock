@@ -50,6 +50,10 @@ class CommandManager():
                 self.create_new_timer()
         self.commandQueue = newQueue
 
+    def delete_command(self,cmd_id):
+        cmd_to_remove = self.commandQueue[cmd_id]
+        self.commandQueue.remove(cmd_to_remove)
+
 class PrintCommand(ICommand):
     def __init__(self, _executionTime, _message):
         super().__init__(_executionTime)
