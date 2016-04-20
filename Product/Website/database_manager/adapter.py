@@ -6,8 +6,10 @@ from scraper import Scraper
 import re
 import datetime
 
+#old email matcher: .*@.*dk
+#semi old: <a href=\"mailto:.*\" class=\"link\">
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
-                        "email": ".*@.*dk",
+                        "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
                         "study area": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
