@@ -17,7 +17,7 @@ class CommandManager():
 
     #Creates a new timer an starts it, delay is time until next command
     def create_new_timer(self):
-        sleepTime = (self.commandQueue[0].executionTime - datetime.now()).total_seconds()
+        sleepTime = max(0,(self.commandQueue[0].executionTime - datetime.now()).total_seconds())
         self.myTimer = Timer(sleepTime, self.main_loop)
         self.myTimer.start()
 

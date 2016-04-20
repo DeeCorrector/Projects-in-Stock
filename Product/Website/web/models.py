@@ -19,7 +19,7 @@ class Counselor(models.Model):
     study_area = models.CharField(max_length=255)
     office = models.CharField(max_length=255)
     projects = models.ManyToManyField(Project)
-    url = models.URLField()
+    url = models.URLField(default="NOURL")
     account_id = models.IntegerField(default=-1)
 
     def __str__(self):
