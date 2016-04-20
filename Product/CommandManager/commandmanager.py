@@ -53,21 +53,3 @@ class CommandManager():
     def delete_command(self,cmd_id):
         cmd_to_remove = self.commandQueue[cmd_id]
         self.commandQueue.remove(cmd_to_remove)
-
-class PrintCommand(ICommand):
-    def __init__(self, _executionTime, _message):
-        super().__init__(_executionTime)
-        self.message = _message
-
-    def execute(self):
-        print (self.message)
-
-class ShutdownCommand(ICommand):
-
-    def execute(self):
-        os.system("shutdown now -h")
-
-
-if __name__ == "__main__":
-    myCommander = CommandManager()
-    myCommander.enqueue_command( ShutdownCommand(datetime.now() + timedelta(seconds=15)) )

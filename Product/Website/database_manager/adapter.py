@@ -1,12 +1,11 @@
 #To make the commandmanager and the scraper importable,
 #run "export PYTHONPATH="${PYTHONPATH}:PATH/TO/PROJECTS-IN-STOCK/Product/CommandManager/:PATH/TO/PROJECTS-IN-STOCK/Product/Scraper/""
-#or if you are using virtualenv add the line to the activate file and reactivate the enviornment.
+#or if you are using virtualenv add the line to the activate file and reactivate the environment.
 from commandmanager import CommandManager,ICommand
 from scraper import Scraper
 import re
 import datetime
 
-#for testing purposes
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": ".*@.*dk",
                         "office": "<div class=\"address\"><p>.*</p></div>",
