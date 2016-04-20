@@ -3,10 +3,19 @@
 #or if you are using virtualenv add the line to the activate file and reactivate the environment.
 from commandmanager import CommandManager,ICommand
 from scraper import Scraper
-from web.models import Counselor
 import re
 import datetime
 
+import os
+import sys
+
+#Plugging the script into Django
+sys.path.append("/home/herluf/Desktop/VirtualEnvs/Projects-in-Stock/Product/Website/")
+os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
+import django
+django.setup()
+
+from web.models import Counselor
 
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
@@ -52,10 +61,10 @@ class Adapter():
     def updatedb(self,info_dict, counselor_url):
         db_target = Counselor.objects.get(url = counselor_url)
         if db_target != None:
-            db_target.name = info_dict["name"]
-            db_target.email = info_dict["email"]
-            db_target.office = info_dict["office"]
-            db.target.study_area = info_dict["study area"]
+            db_target.name = info_dict["name"][0]
+            db_target.email = info_dict["email"][0]
+            db_target.office = info_dict["office"][0]
+            db_target.study_area = info_dict["study area"][0]
             db_target.save()
 
     #get all scheduled db_updates
@@ -71,6 +80,6 @@ class Adapter():
         self.commandmanager.commandQueue = []
 
 if __name__ == "__main__":
-    target = models.Counselor.objects.get(name="TEMP")
+    target = Counselor.objects.get(url="http://www.diku.dk/Ansatte/forskere/?pure=da/persons/162114")
     my_adapter = Adapter()
     my_adapter.update_now(target)
