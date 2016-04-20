@@ -1,16 +1,33 @@
 {%extends "web/master.html" %}
 {% block content%}
+<style>
+p.colgreen {color:#1D8348}
+p.colred {color:#E60000}
+</style>
+
 <div class="row info-box">
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <h2><small>Counselor details for</small><br />{{ counselor.name }}</h2>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <h2><small>Area of study</small><br />{{ counselor.study_area }}</h2>
   </div>
 
-  <div class="col-md-4">
+<!--   -->
+  <div class="col-md-3">
+    <h2><small>Status</small><br />
+        {% if counselor.status == "Available" %}
+        <p class="colgreen">Available</p>
+        {% else %}
+        <p class="colred">Unavailable</p>
+        {% endif %}
+    </h2>
+  </div>
+
+
+  <div class="col-md-3">
     <br />
     <h4><small>Email:  </small>{{ counselor.email }}</h4>
     <h4><small>Office:  </small>{{ counselor.office }}</h4>

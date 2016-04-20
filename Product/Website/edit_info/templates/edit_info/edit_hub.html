@@ -1,11 +1,16 @@
 {% extends "edit_info/submenu.html" %}
 {% block editcontent %}
-<h3>Welcome {{ counselor.name }} here you can edit your details</h3><br />
+<style>
+p.colgreen {color:#1D8348}
+p.colred {color:#E60000}
+</style>
+
+<h3>Welcome to your homepage {{ counselor.name }} </h3><br />
 <a style="float : right;" href="{% url "edit counselor" counselor.id%}">Edit Info</a>
 <div class="row info-box">
 
   <div class="col-md-4">
-    <h2><small>Counselor details for</small><br />{{ counselor.name }}</h2>
+    <h2><small>Counselor </small><br />{{ counselor.name }}</h2>
   </div>
 
   <div class="col-md-4">
@@ -13,10 +18,10 @@
   </div>
 
   <div class="col-md-4">
-    <br />
     <h4><small>Email:  </small>{{ counselor.email }}</h4>
     <h4><small>Office:  </small>{{ counselor.office }}</h4>
   </div>
+
 
 </div>
   <h2>Projects</h2>
@@ -34,6 +39,7 @@
       <h3><small>Degree</small></h3>
     </div>
   </div>
+
 
   <div class="list-group" id="counselor_projects_list">
     {% for p in counselor.projects.all%}
@@ -55,5 +61,24 @@
     {% endfor %}
   </div>
 </div>
+
+<!-- Status of counselor -->
+<div>
+  <center>
+    <h2>
+      You are currently listed as
+      {% if counselor.status == "Available" %}
+      <p class="colgreen">Available</p>
+      {% else %}
+      <p class="colred">Unavailable</p>
+      {% endif %}
+    </h2>
+  </center>
+
+<div style="position: center; top: -30px;">
+  <div class="row">
+    <div class="col-md-6">
+      <h3><small> You can change your status at "Edit Info".</small></h3>
+    </div>
 
 {% endblock %}

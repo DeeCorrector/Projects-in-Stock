@@ -21,6 +21,9 @@ class Counselor(models.Model):
     projects = models.ManyToManyField(Project)
     url = models.URLField(default="NOURL")
     account_id = models.IntegerField(default=-1)
+    status_choices = (('Available','Available'),('Unavailable','Unavailable'))
+    status = models.CharField(max_length=50, choices=status_choices, default='Available')
+
 
     def __str__(self):
         return self.name
