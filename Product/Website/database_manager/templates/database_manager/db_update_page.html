@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<h6><small>mas sucs</small></h6>
+<form action='/update/database/specific/' method='post'>{% csrf_token %}
+  {%for c in counselors%}
+   <input type="submit" id="counselorname" name="counselorname" value="{{c.name}}" /><br />
+  {%endfor%}
+</form>
+
+</html>

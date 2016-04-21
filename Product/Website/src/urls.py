@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^accounts/login/$', edit_views.login, name='login'),
     url(r'^accounts/auth_login/$', edit_views.auth_login, name="auth_login"),
     url(r'^accounts/logout/$', edit_views.logout, name='logout'),
+
+    #db update
+    url(r"^update/", include("database_manager.urls")),
 ]

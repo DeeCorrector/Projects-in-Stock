@@ -1,6 +1,5 @@
 #Imports to render pages, redirect and give error404
 from django.shortcuts import render, get_object_or_404, redirect
-#
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
@@ -67,7 +66,7 @@ def edit_project(request, project_id):
         "form": form,
       }
     context.update(csrf(request))
-    return render(request, "edit_info/edit_project.html", context)
+    return
 
 #view for deleting an already existing project_id
 @login_required

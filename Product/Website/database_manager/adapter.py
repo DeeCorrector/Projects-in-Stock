@@ -47,6 +47,11 @@ class Adapter():
         self.my_commandmanager = CommandManager()
         self.my_commandFactory = CommandFactory()
 
+    def update_all_now(self):
+        for c in Counselor.objects.all():
+            command = self.my_commandFactory.new_ScrapeCommand(datetime.datetime.now(),c.url,counselor_match_dict,self.updatedb)
+            self.my_commandmanager.enqueue_command(command)
+
     #do db_update now
     def update_now(self, counselor):
         command = self.my_commandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselor_match_dict,self.updatedb)
