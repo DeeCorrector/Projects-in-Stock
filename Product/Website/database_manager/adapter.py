@@ -22,7 +22,7 @@ counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
                         "study area": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
-employee_list_match_dict = {"url":"<a href=[a-zA-Z0-9_.+-?=\"\']+>[a-zA-Z0-9_.+-?=,]+</a>"}
+employee_list_match_dict = {"url":"\?pure=en\/persons+\/[0-9]+"}
 
 #Scrapes a single url with a given dict at a given time.
 class ScrapeCommand (ICommand):
