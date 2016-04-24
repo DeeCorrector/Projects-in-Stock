@@ -10,18 +10,21 @@ import os
 import sys
 
 #Plugging the script into Django
-sys.path.append("/home/herluf/Desktop/VirtualEnvs/Projects-in-Stock/Product/Website/")
-os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
-import django
-django.setup()
+#sys.path.append("/home/mads/Develop/Projects-in-Stock/Product/Website")
+#os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
+#import django
+#django.setup()
 
-from web.models import Counselor
+#from web.models import Counselor
 
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
                         "study area": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
+employee_list_match_dict = {"url":"<a href=[a-zA-Z0-9_.+-?=\"\']+>[a-zA-Z0-9_.+-?=,]+</a>"}
+
+#Scrapes a single url with a given dict at a given time.
 class ScrapeCommand (ICommand):
     def __init__(self,_executionTime, _url, _match_dict, _target ):
         super().__init__(_executionTime)
@@ -32,7 +35,24 @@ class ScrapeCommand (ICommand):
     def execute(self):
         my_scraper = Scraper(self.url,self.matching_dict)
         result = my_scraper.scrape()
-        self.target(result, self.url)
+        if self.target is None:
+            return result
+        else:
+            self.target(result, self.url)
+
+#Searches KU's page for new counselors using the ScrapeCommand. If it finds new counselors they're added to the database
+class FindNewCounselorsCommand (ICommand):
+    def init(self,_executionTime):
+        super().__init(_executionTime)
+
+    def execute(self):
+        #The site listing all of the employees on Diku
+        self.url = "http://diku.dk/english/staff/"
+        #This match_dict should get all links to counselors on the page
+        self.match_dict = employee_list_match_dict
+        self.scrape_command = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),self.url,self.match_dict, None)
+        result = self.scrape_command.execute()
+        print (result)
 
 class UpdateAllCounselors(ICommand):
     pass
@@ -85,6 +105,8 @@ class Adapter():
         self.commandmanager.commandQueue = []
 
 if __name__ == "__main__":
-    target = Counselor.objects.get(url="http://www.diku.dk/Ansatte/forskere/?pure=da/persons/162114")
-    my_adapter = Adapter()
-    my_adapter.update_now(target)
+#    target = Counselor.objects.get(url="http://www.diku.dk/Ansatte/forskere/?pure=da/persons/162114")
+#    my_adapter = Adapter()
+#    my_adapter.update_now(target)
+    test = FindNewCounselorsCommand(datetime.datetime.now())
+    test.execute()
