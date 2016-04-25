@@ -1,22 +1,22 @@
-#To make the commandmanager and the scraper importable,
-#run "export PYTHONPATH="${PYTHONPATH}:PATH/TO/PROJECTS-IN-STOCK/Product/CommandManager/:PATH/TO/PROJECTS-IN-STOCK/Product/Scraper/""
-#or if you are using virtualenv add the line to the activate file and reactivate the environment.
-from commandmanager import CommandManager,ICommand
-from scraper import Scraper
 import re
 import datetime
-
 import os
 import sys
-
+#Finding the parent directory
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+base_dir = base_dir[:-7]
+#Importing commandmanager and Scraper
+sys.path.append(base_dir+"CommandManager/")
+sys.path.append(base_dir+"Scraper/")
+from commandmanager import CommandManager,ICommand
+from scraper import Scraper
 #Plugging the script into Django
-sys.path.append(os.path.join( os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "Website"))
+sys.path.append(base_dir +"Website/")
 os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
 import django
 django.setup()
 
-from web.models import Counselor
-
+#Matching dictonaries for testing purposes
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
@@ -105,8 +105,5 @@ class Adapter():
         self.commandmanager.commandQueue = []
 
 if __name__ == "__main__":
-#    target = Counselor.objects.get(url="http://www.diku.dk/Ansatte/forskere/?pure=da/persons/162114")
-#    my_adapter = Adapter()
-#    my_adapter.update_now(target)
     test = FindNewCounselorsCommand(datetime.datetime.now())
     test.execute()
