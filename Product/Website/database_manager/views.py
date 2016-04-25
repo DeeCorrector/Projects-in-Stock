@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from web.models import Counselor
-from .adapter import Adapter
+from .adapter import Adapter, FindNewCounselorsCommand
 
 adapter = Adapter()
 
@@ -19,4 +19,10 @@ def update_all_counselors(request):
 def update_specific_counselor(request):
     target = Counselor.objects.get(name=(request.POST["counselorname"]))
     adapter.update_now(target)
+    return redirect("/admin/")
+
+def find_new_counselors(request):
+    import datetime
+    test = FindNewCounselorsCommand(datetime.datetime.now())
+    test.execute()
     return redirect("/admin/")

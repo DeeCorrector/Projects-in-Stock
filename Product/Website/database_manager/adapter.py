@@ -14,15 +14,18 @@ from scraper import Scraper
 sys.path.append(base_dir +"Website/")
 os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
 import django
+from web.models import Counselor
 django.setup()
 
 #Matching dictonaries for testing purposes
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
-                        "study area": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
+                        "studyarea": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
-employee_list_match_dict = {"url":"\?pure=en\/persons+\/[0-9]+"}
+employee_list_match_dict = {"url":"(\?pure=en\/persons+\/[0-9]+).*</a></td><td valign='top'>Professor"}
+#employee_list_match_dict = {"url":"<a href=\"[a-zA-Z0-9?/=]+\">.*</a></td><td valign='top'>Professor&nbsp;</td>",
+                            #"status":""}
 
 #Scrapes a single url with a given dict at a given time.
 class ScrapeCommand (ICommand):
@@ -42,17 +45,61 @@ class ScrapeCommand (ICommand):
 
 #Searches KU's page for new counselors using the ScrapeCommand. If it finds new counselors they're added to the database
 class FindNewCounselorsCommand (ICommand):
-    def init(self,_executionTime):
-        super().__init(_executionTime)
-
-    def execute(self):
+    def __init__(self,_executionTime):
+        super().__init__(_executionTime)
         #The site listing all of the employees on Diku
         self.url = "http://diku.dk/english/staff/"
         #This match_dict should get all links to counselors on the page
         self.match_dict = employee_list_match_dict
         self.scrape_command = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),self.url,self.match_dict, None)
-        result = self.scrape_command.execute()
-        print (result)
+
+    def execute(self):
+        scrape_result = self.scrape_command.execute()
+        url_dictonary = self.append_url_format(scrape_result)
+
+        for key in url_dictonary:
+            url_list = url_dictonary[key]
+            for url in url_list:
+                print(url)
+                #if not self.exists_in_database(url):
+                #    Scraper = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),url,counselor_match_dict, None)
+                #    self.create_new_counselor(Scraper.execute())
+
+    def create_new_counselor(self,info_dict):
+        def unlisitfy(_dict):
+            i = _dict.copy()
+            for key in i:
+                if i[key] != []:
+                    i[key] = i[key][0]
+                else:
+                    i[key] = ""
+            return i
+
+        info_dict = unlisitfy(info_dict)
+        print(info_dict)
+
+        db_target = Counselor()
+        db_target.name = info_dict["name"]
+        db_target.email = info_dict["email"]
+        db_target.office = info_dict["office"]
+        db_target.study_area = info_dict["studyarea"]
+        db_target.save()
+
+    def append_url_format(self,input_dictonary):
+        result_dictonary = input_dictonary
+        for key in input_dictonary:
+            working_url_list = []
+            for url in input_dictonary[key]:
+                working_url_list.append("http://diku.dk/english/staff/" + url)
+            result_dictonary[key] = working_url_list
+        return result_dictonary
+
+    def exists_in_database(self, _url):
+        try:
+            c = Counselor.objects.get(url = _url).name
+        except Counselor.DoesNotExist:
+            c = None
+        return c
 
 class UpdateAllCounselors(ICommand):
     pass
@@ -89,7 +136,7 @@ class Adapter():
             db_target.name = info_dict["name"][0]
             db_target.email = info_dict["email"][0]
             db_target.office = info_dict["office"][0]
-            db_target.study_area = info_dict["study area"][0]
+            db_target.study_area = info_dict["studyarea"][0]
             db_target.save()
 
     #get all scheduled db_updates

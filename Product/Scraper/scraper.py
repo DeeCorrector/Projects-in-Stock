@@ -26,8 +26,9 @@ class IParser():
 class Parser(IParser):
     def __init__(self,_html,_match_dict):
         self.html = _html
-        self.matching_dictonary = _match_dict
-        self.result_dictonary = _match_dict
+        #copying by value to avoid overwriting the given _match_dict in memory
+        self.matching_dictonary = _match_dict.copy()
+        self.result_dictonary = _match_dict.copy()
 
     def parse_html(self):
         #removes the html tags from a given string
@@ -35,6 +36,7 @@ class Parser(IParser):
             string_no_tags = re.sub("<.*?>","",_string)
             return string_no_tags
         #Runs each regex and tries to find matches
+        print (self.matching_dictonary)
         for key in self.matching_dictonary:
             matches_list = re.findall(self.matching_dictonary[key],self.html)
             cleaned_matches_list = []
