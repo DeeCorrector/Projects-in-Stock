@@ -10,12 +10,12 @@ import os
 import sys
 
 #Plugging the script into Django
-#sys.path.append("/home/mads/Develop/Projects-in-Stock/Product/Website")
-#os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
-#import django
-#django.setup()
+sys.path.append(os.path.join( os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "Website"))
+os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
+import django
+django.setup()
 
-#from web.models import Counselor
+from web.models import Counselor
 
 counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "email": "<span>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+</span>",
