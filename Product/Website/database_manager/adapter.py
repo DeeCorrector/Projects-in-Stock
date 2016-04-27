@@ -23,7 +23,7 @@ counselor_match_dict = {"name": "<span class=\"person\">.*</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
                         "studyarea": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
-employee_list_match_dict = {"url":"(\?pure=en\/persons+\/[0-9]+).*</a></td><td valign='top'>Professor"}
+employee_list_match_dict = {"url":"\?pure=en\/persons+\/[0-9]+"}
 #employee_list_match_dict = {"url":"<a href=\"[a-zA-Z0-9?/=]+\">.*</a></td><td valign='top'>Professor&nbsp;</td>",
                             #"status":""}
 
@@ -51,19 +51,21 @@ class FindNewCounselorsCommand (ICommand):
         self.url = "http://diku.dk/english/staff/"
         #This match_dict should get all links to counselors on the page
         self.match_dict = employee_list_match_dict
-        self.scrape_command = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),self.url,self.match_dict, None)
-
     def execute(self):
-        scrape_result = self.scrape_command.execute()
+        scrape_result = self.scrape_url(self.url,self.match_dict)
         url_dictonary = self.append_url_format(scrape_result)
 
         for key in url_dictonary:
             url_list = url_dictonary[key]
             for url in url_list:
-                print(url)
-                #if not self.exists_in_database(url):
-                #    Scraper = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),url,counselor_match_dict, None)
-                #    self.create_new_counselor(Scraper.execute())
+                print ((not self.exists_in_database(url)))
+                if not self.exists_in_database(url):
+                   counselor_info = self.scrape_url(url,counselor_match_dict)
+                   self.create_new_counselor(counselor_info)
+
+    def scrape_url(self,url,match_dict):
+        my_scraper = Scraper(url,match_dict)
+        return my_scraper.scrape()
 
     def create_new_counselor(self,info_dict):
         def unlisitfy(_dict):
@@ -74,10 +76,8 @@ class FindNewCounselorsCommand (ICommand):
                 else:
                     i[key] = ""
             return i
-
         info_dict = unlisitfy(info_dict)
         print(info_dict)
-
         db_target = Counselor()
         db_target.name = info_dict["name"]
         db_target.email = info_dict["email"]
