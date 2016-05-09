@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-
 from web.models import Counselor
 from .adapter import Adapter, FindNewCounselorsCommand
+import datetime
 
 adapter = Adapter()
 
@@ -9,8 +9,11 @@ def update_database_view(request):
     if not request.user.is_authenticated():
         return redirect('/admin/login/')
     else:
-        c = Counselor.objects.all()
-        return render(request, 'database_manager/db_update_page.html',{"counselors":c})
+        counselors = Counselor.objects.all()
+        context = {
+            "counselors":counselors
+        }
+        return render(request, 'database_manager/db_update_page.html',context)
 
 def update_all_counselors(request):
     adapter.update_all_now()
@@ -22,7 +25,6 @@ def update_specific_counselor(request):
     return redirect("/admin/")
 
 def find_new_counselors(request):
-    import datetime
     test = FindNewCounselorsCommand(datetime.datetime.now())
     test.execute()
     return redirect("/admin/")

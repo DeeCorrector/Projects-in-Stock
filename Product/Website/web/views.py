@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Project, Counselor
-# Create your views here.
 
 def index(request):
     return render(request,"web/index.html")
@@ -16,20 +15,20 @@ def project_list(request):
 def project_detail(request, project_id):
     proj = get_object_or_404(Project, id=project_id)
     context = {
-        'project': proj
+        'project': proj,
     }
     return render(request, 'web/project_detail.html', context)
 
 def counselor_list(request):
-    cs = Counselor.objects.all()
+    counselors = Counselor.objects.all()
     context = {
-        "counselors": cs
+        "counselors": counselors
     }
     return render(request, 'web/counselor_list.html', context)
 
 def counselor_detail(request, counselor_id):
-    c = get_object_or_404(Counselor, id=counselor_id)
+    counselor = get_object_or_404(Counselor, id=counselor_id)
     context = {
-        'counselor': c
+        'counselor': counselor
     }
     return render(request, 'web/counselor_detail.html', context)

@@ -19,7 +19,7 @@ class EditCounselorInfoForm(forms.ModelForm):
         fields = [
             "name",
             "email",
-            "study_area",
+            "studyArea",
             "office",
             "status"
         ]

@@ -6,7 +6,7 @@ p.colred {color:#E60000}
 </style>
 
 <h3>Welcome to your homepage {{ counselor.name }} </h3><br />
-<a style="float : right;" href="{% url "edit counselor" counselor.id%}">Edit Info</a>
+<a style="float : right;" href="{% url "edit_counselor" counselor.id%}">Edit Info</a>
 <div class="row info-box">
 
   <div class="col-md-4">
@@ -42,22 +42,20 @@ p.colred {color:#E60000}
 
 
   <div class="list-group" id="counselor_projects_list">
-    {% for p in counselor.projects.all%}
-    <!--<a class="list-group-item" href="{% url 'project_detail' p.id %}">-->
+    {% for project in counselor.projects.all%}
       <div class="row list-group-item">
-        <a href="{% url 'project_detail' p.id %}">
-          <div class="col-md-3">{{ p.title }}</div>
-          <div class="col-md-3">{{ p.topic }}</div>
-          <div class="col-md-3">{{ p.degree }}</div>
+        <a href="{% url 'project_detail' project.id %}">
+          <div class="col-md-3">{{ project.title }}</div>
+          <div class="col-md-3">{{ project.topic }}</div>
+          <div class="col-md-3">{{ project.degree }}</div>
         </a>
         <div class="col-md-3">
           <span class="right">
-            <a href="{%url 'edit project' p.id%}"><button class="btn-primary btn-edit">Edit</button></a>
-            <a href="{%url 'delete project' p.id%}"><button class="btn-primary btn-delete">Delete</button></a>
+            <a href="{%url 'edit_project' project.id%}"><button class="btn-primary btn-edit">Edit</button></a>
+            <a href="{%url 'delete_project' project.id%}"><button class="btn-primary btn-delete">Delete</button></a>
           </span>
         </div>
       </div>
-  <!--</a>-->
     {% endfor %}
   </div>
 </div>

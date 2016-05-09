@@ -33,13 +33,6 @@ class Test_Parser(ut.TestCase):
       if not issubclass(Parser,IParser):
           self.fail("Parser does not inherit from IParser")
 
-#                            !!!Beware!!!
-#                        Actually tests if the IParser
-#                        contains the get_html method.
-#                        We will have to change this,
-#                        issues has been submitted to
-#                        github.
-
   def test_contains_methods(self):
       try:
           self.instance.parse_html()
@@ -47,7 +40,7 @@ class Test_Parser(ut.TestCase):
           self.fail("parse_html() does not exist!")
 
   def test_get_html_returns_dictionary(self):
-      self.assertEquals(type(self.instance.parse_html()),dict)
+      self.assertEqual(type(self.instance.parse_html()),dict)
 
 
 if __name__ == "__main__":

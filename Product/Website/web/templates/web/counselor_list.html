@@ -2,8 +2,8 @@
 {% block content%}
 <h1>list of councelors</h1>
   <div class="list-group">
-  {% for c in counselors %}
-    <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a>
+  {% for counselor in counselors %}
+    <a class="list-group-item" href="{% url 'counselor_detail' counselor.id %}">{{ counselor.name }}</a>
   {% endfor %}
 </div>
 {% endblock %}

@@ -3,17 +3,15 @@ from django.test import TestCase
 from .models import Counselor, Project
 from .views import *
 
-# Create your tests here.
-
 #Model testing:
 class Test_counselor(TestCase):
     def test_is_not_registered(self):
-        c = Counselor(account_id=-1)
-        self.assertFalse(c.is_registered())
+        counselor = Counselor(accountId=-1)
+        self.assertFalse(counselor.is_registered())
 
     def test_is_registered(self):
-        c = Counselor(account_id=1)
-        self.assertTrue(c.is_registered())
+        counselor = Counselor(accountId=1)
+        self.assertTrue(counselor.is_registered())
 
 #Views testing:
 class Test_index_view(TestCase):
@@ -29,9 +27,10 @@ class Test_project_list_view(TestCase):
         self.assertEquals(request.resolver_match.func, project_list)
 
 class Test_project_detail_view(TestCase):
+    #"setUp" is an empty predefined in TestCase and the method below is an override.
     def setUp(self):
-        p = Project()
-        p.save()
+        project = Project()
+        project.save()
 
     def test_project_detail_response(self):
         request = self.client.get(reverse('project_detail', args=[1]))
@@ -50,8 +49,8 @@ class Test_counselor_list_view(TestCase):
 
 class Test_counselor_detail_view(TestCase):
     def setUp(self):
-        c = Counselor()
-        c.save()
+        counselor = Counselor()
+        counselor.save()
 
     def test_counselor_detail_response(self):
         request = self.client.get(reverse('counselor_detail', args=[1]))

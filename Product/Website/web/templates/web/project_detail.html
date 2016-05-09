@@ -17,8 +17,8 @@
   <div class="col-md-4">
     <h4>Counselors</h4>
       <div class="list-group">
-      {% for c in project.counselor_set.all %}
-        <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a>
+      {% for counselor in project.counselor_set.all %}
+        <a class="list-group-item" href="{% url 'counselor_detail' counselor.id %}">{{ c.name }}</a>
       {% endfor %}
     </div>
   </div>

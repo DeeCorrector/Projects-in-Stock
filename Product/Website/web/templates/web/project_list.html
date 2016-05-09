@@ -2,8 +2,8 @@
 {% block content%}
   <h1>List of projects</h1>
   <div class="list-group">
-    {% for prj in project_list %}
-    <a class="list-group-item" href="{% url 'project_detail' prj.id %}">{{prj.title}}</a>
+    {% for project in project_list %}
+    <a class="list-group-item" href="{% url 'project_detail' project.id %}">{{project.title}}</a>
     {% endfor %}
   </div>
 {%endblock%}

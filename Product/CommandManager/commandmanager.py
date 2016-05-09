@@ -50,6 +50,8 @@ class CommandManager():
                 self.create_new_timer()
         self.commandQueue = newQueue
 
-    def delete_command(self,cmd_id):
-        cmd_to_remove = self.commandQueue[cmd_id]
-        self.commandQueue.remove(cmd_to_remove)
+    #Delete a command, resets timer aswell
+    def delete_command(self,cmdId):
+        cmdToRemove = self.commandQueue[cmdId]
+        self.commandQueue.remove(cmdToRemove)
+        self.create_new_timer()

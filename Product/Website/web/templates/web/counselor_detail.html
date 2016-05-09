@@ -51,12 +51,12 @@ p.colred {color:#E60000}
   </div>
 
   <div class="list-group" id="counselor_projects_list">
-    {% for p in counselor.projects.all%}
-    <a class="list-group-item" href="{% url 'project_detail' p.id %}">
+    {% for project in counselor.projects.all%}
+    <a class="list-group-item" href="{% url 'project_detail' project.id %}">
       <div class="row">
-        <div class="col-md-4">{{ p.title }}</div>
-        <div class="col-md-4">{{ p.topic }}</div>
-        <div class="col-md-4">{{ p.degree }}</div>
+        <div class="col-md-4">{{ project.title }}</div>
+        <div class="col-md-4">{{ project.topic }}</div>
+        <div class="col-md-4">{{ project.degree }}</div>
       </div>
     </a>
     {% endfor %}

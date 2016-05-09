@@ -2,7 +2,7 @@
 {% block editcontent %}
 <h1>Create a new project </h1>
 <form method="POST" action="">{% csrf_token %}
-  {{CreateForm.as_p}}
+  {{CreateForm.as_p}} <!--Print form inside paragraf tags-->
   <button type="submit">Submit Project</button>
 </form>
 {% endblock %}
