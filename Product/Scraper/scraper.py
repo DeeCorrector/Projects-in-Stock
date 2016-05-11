@@ -32,13 +32,27 @@ class Parser(IParser):
             stringNoTags = re.sub("<.*?>","",_string)
             return stringNoTags
 
+        def convert_bad_encodings(_string):
+            translation_dict = {
+                '&#248;': 'ø',
+                '&#216;': 'Ø',
+                '&#229;': 'å',
+                '&#197;':'Å',
+                '&#230;':'æ',
+                '&#198;':'Æ'
+            }
+
+            for key in translation_dict:
+                _string = _string.replace(key, translation_dict[key])
+            return _string
+
         #Runs each regex and tries to find matches
         for key in self.matchingDictonary:
             matchesList = re.findall(self.matchingDictonary[key],self.html)
             cleanedMatchesList = []
 
             for match in matchesList:
-                cleanString = remove_tags(match)
+                cleanString = convert_bad_encodings(remove_tags(match))
                 cleanedMatchesList.append(cleanString)
 
             #Replace dictonary element with the new list

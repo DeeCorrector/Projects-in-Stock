@@ -14,10 +14,9 @@ class Test_IRequest(ut.TestCase):
         except AttributeError:
             self.fail("get_html does not exist!")
 
-
 class Test_Request(ut.TestCase):
     def setUp(self):
-        self.instance = Request("http://www.dialogdesign.dk/")
+        self.instance = Request("http://www.google.com/")
 
     def test_contains_valid_fields(self):
         try:
@@ -33,9 +32,11 @@ class Test_Request(ut.TestCase):
 
     def test_implements_get_html(self):
         temp = self.instance.get_html()
-        if temp==None: self.fail("Request.get_html() returns \'None\'")
+        if temp==None:
+            self.fail("Request.get_html() returns \'None\'")
 
-        if not type(temp)==str: self.fail("Request.get_html() returns a value that is not a string")
+        if not type(temp)==str:
+            self.fail("Request.get_html() returns a value that is not a string")
 
         if "<!DOCTYPE" not in temp: self.fail("Request.get_html() returns something that does not contain \'<!DOCTYPE\'")
 
