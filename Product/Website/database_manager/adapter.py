@@ -58,16 +58,15 @@ class FindNewCounselorsCommand (ICommand):
         for key in url_dictonary:
             url_list = url_dictonary[key]
             for url in url_list:
-                print ((not self.exists_in_database(url)))
                 if not self.exists_in_database(url):
                    counselor_info = self.scrape_url(url,counselor_match_dict)
-                   self.create_new_counselor(counselor_info)
+                   self.create_new_counselor(counselor_info,url)
 
     def scrape_url(self,url,match_dict):
         my_scraper = Scraper(url,match_dict)
         return my_scraper.scrape()
 
-    def create_new_counselor(self,info_dict):
+    def create_new_counselor(self,info_dict, url):
         def unlisitfy(_dict):
             i = _dict.copy()
             for key in i:
@@ -77,12 +76,13 @@ class FindNewCounselorsCommand (ICommand):
                     i[key] = ""
             return i
         info_dict = unlisitfy(info_dict)
-        print(info_dict)
+
         db_target = Counselor()
         db_target.name = info_dict["name"]
         db_target.email = info_dict["email"]
         db_target.office = info_dict["office"]
         db_target.study_area = info_dict["studyarea"]
+        db_target.url = url
         db_target.save()
 
     def append_url_format(self,input_dictonary):

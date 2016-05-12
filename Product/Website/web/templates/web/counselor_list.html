@@ -3,7 +3,7 @@
 <h1>list of councelors</h1>
   <div class="list-group">
   {% for c in counselors %}
-    <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}</a>
+    <a class="list-group-item" href="{% url 'counselor_detail' c.id %}">{{ c.name }}<span style="margin-right : 200px; float: right;">{{c.status}}</span></a>
   {% endfor %}
 </div>
 {% endblock %}
