@@ -2,8 +2,8 @@
 Københavns Universitet - Datalogisk Institut.
 
 Kursus: Softwareudvikling
+
 Projekt: Projects-in-Stock
-Københavns Universitet - Datalogisk Institut.
 
 Mads, Herluf & Philip.
 
