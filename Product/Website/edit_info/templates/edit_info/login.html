@@ -1,6 +1,6 @@
 {% extends "web/master.html" %}
 {% block content %}
-
+<title>Login page</title>
 <h2><small>Login here to edit you account details</small></h2>
     {% if bad_login %}
       <p style="color:red;">Invalid username or password</p>
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-md-1">
-      <input type="submit" value="Login" />
+      <input type="submit" value="Login" id="login-button" />
     </div>
   </div>
 </form>

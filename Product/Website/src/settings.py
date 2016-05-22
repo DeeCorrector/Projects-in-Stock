@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'web',
     'edit_info',
     'database_manager',
+    'lettuce.django' #Testing framework
 ]
 
 MIDDLEWARE_CLASSES = [
