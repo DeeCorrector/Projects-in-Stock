@@ -1,8 +1,9 @@
 # Projects-in-Stock
-
-DIKU - Softwareudvikling  
-
 Københavns Universitet - Datalogisk Institut.
+
+Kursus: Softwareudvikling
+
+Projekt: Projects-in-Stock
 
 Mads, Herluf & Philip.
 
