@@ -1,9 +1,0 @@
-unittests:
-	python Scraper/request_tests.py
-	python Scraper/parser_tests.py
-	python Scraper/scraper_test.py
-	python CommandManager/CommandManager_test.py
-	@echo prutte
-
-
-temp:

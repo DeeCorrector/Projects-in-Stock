@@ -1,0 +1,18 @@
+unit:
+	python Scraper/request_tests.py
+	python Scraper/parser_tests.py
+	python Scraper/scraper_test.py
+	python CommandManager/CommandManager_test.py
+
+
+acceptance:
+	@echo ==============================================================
+	@echo IMPORTANT: A local server must be running in another terminal!
+	@echo 	- use: python manage.py runserver
+	@echo ==============================================================
+	@echo
+	@echo
+	robot robottest
+
+integration:
+	python Website/database_manager/adapter_test.py
