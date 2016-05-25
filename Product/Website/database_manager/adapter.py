@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import re
 import datetime
 import os
@@ -32,14 +33,14 @@ employeeListMatchDict = {"url":"(\?pure=en\/persons+\/[0-9]+).*</a></td><td vali
 #Scrapes a single url with a given dict at a given time.
 class ScrapeCommand (ICommand):
     def __init__(self,_executionTime, _url, _matchDict, _target ):
-        super().__init__(_executionTime)
+        self.executionTime = _executionTime
         self.url = _url
         self.matchingDict = _matchDict
         self.target = _target
 
     def execute(self):
         myScraper = Scraper(self.url,self.matchingDict)
-        result = myScraper.scrape()
+        result = convert_bad_encodings(myScraper.scrape())
         if self.target is None:
             return result
         else:
@@ -116,6 +117,20 @@ class Adapter():
         self.myCommandmanager = CommandManager()
         self.myCommandFactory = CommandFactory()
 
+    def convert_bad_encodings(self, infoDict):
+        symbolDict = {
+            u'&#248;': 'ø',
+            u'&#216;': 'Ø',
+            u'&#229;': 'å',
+            u'&#197;':'Å',
+            u'&#230;':'æ',
+            u'&#198;':'Æ'
+        }
+        for symbol in translation_dict:
+            for key in infoDict:
+                infoDict[key] = infoDict[key].replace(symbol, symbolDict[symbol])
+        return infoDict
+
     def update_all_now(self):
         for counselor in Counselor.objects.all():
             command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.updatedb)
@@ -129,8 +144,9 @@ class Adapter():
         command = self.myCommandFactory.new_ScrapeCommand(datetime,counselor.url,counselorMatchDict,self.updatedb)
         self.myCommandmanager.enqueue_command(command)
 
-    def updatedb(self,infoDict, counselorUrl):
+    def updatedb(self, infoDict, counselorUrl):
         dbTarget = Counselor.objects.get(url = counselorUrl)
+        infoDict = convert_bad_encodings(infoDict)
         if dbTarget != None:
             dbTarget.name = infoDict["name"][0]
             dbTarget.email = infoDict["email"][0]
