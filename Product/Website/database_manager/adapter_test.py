@@ -33,12 +33,33 @@ class Test_ScrapeCommand(ut.TestCase):
         self.assertTrue((self.instance.executionTime==self.executionTime),True)
 
     #__init__: contains _url
+    def test_contains_url(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+        self.assertTrue((self.instance.url==self.url),True)
     #__init__: contains _matchDict
+    def test_contains_matchingDictonary(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+        self.assertTrue((self.instance.matchingDict==self.matchingDictonary),True)
+
     #__init__: contains _target
+    def test_contains_target(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+        self.assertTrue((self.instance.target==self.target),True)
 
     #execute: if target is None return result
-    #execute: if target is not None result should be send to target
+    def test_returns_when_none(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,None)
+        self.assertTrue(type(self.instance.execute),dict)
 
+    #execute: if target is not None result should be send to target
+    def test_sends_to_target(self):
+        self.boolean = False
+        def mockFunction(x,i):
+            self.boolean = True
+
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,mockFunction)
+        self.instance.execute()
+        self.assertTrue(self.boolean, True)
 #Testing FindNewCounselorsCommand
     #The following functions of FindNewCounselorsCommand is not
     #tested due to being a part of the implementation:

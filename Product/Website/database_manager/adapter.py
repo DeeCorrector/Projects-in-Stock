@@ -40,7 +40,7 @@ class ScrapeCommand (ICommand):
 
     def execute(self):
         myScraper = Scraper(self.url,self.matchingDict)
-        result = convert_bad_encodings(myScraper.scrape())
+        result = myScraper.scrape()
         if self.target is None:
             return result
         else:
