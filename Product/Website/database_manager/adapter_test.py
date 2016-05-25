@@ -1,6 +1,7 @@
 import os
 import sys
-
+import unittest as ut
+from datetime import datetime
 #dependencies for adapter
 #Finding the parent directory
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,14 +10,28 @@ base_dir = base_dir[:-7]
 sys.path.append(base_dir +"Website/")
 os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
 import django
-from web.models import Counselor
 django.setup()
 
-from adapter import ScrapeCommand, FindNewCounselorsCommand, CommandFactory, Adapter 
+from adapter import ScrapeCommand, FindNewCounselorsCommand, CommandFactory, Adapter
 
 #Testing ScrapeCommand
+class Test_ScrapeCommand(ut.TestCase):
+    def setUp(self):
+        self.executionTime = datetime(9999,9,9)
+        self.url = "http://example.com"
+        self.matchingDictonary = {"content": ".*"}
+        self.target = None
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+
     #__init__: inits
+    def test_inits(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+        self.assertTrue(type(self.instance), ScrapeCommand)
     #__init__: contains _executionTime
+    def test_contains_executionTime(self):
+        self.instance = ScrapeCommand(self.executionTime,self.url,self.matchingDictonary,self.target)
+        self.assertTrue((self.instance.executionTime==self.executionTime),True)
+
     #__init__: contains _url
     #__init__: contains _matchDict
     #__init__: contains _target
@@ -68,3 +83,6 @@ from adapter import ScrapeCommand, FindNewCounselorsCommand, CommandFactory, Ada
 
     #clear_all_scheduled_updates: if the que contains anything it should not at the end
     #clear_all_scheduled_updates: if the que does not contain anything nothing should happen
+
+if __name__ == "__main__":
+    ut.main()
