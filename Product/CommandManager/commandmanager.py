@@ -54,4 +54,5 @@ class CommandManager():
     def delete_command(self,cmdId):
         cmdToRemove = self.commandQueue[cmdId]
         self.commandQueue.remove(cmdToRemove)
-        self.create_new_timer()
+        if len (self.commandQueue) > 0:
+            self.create_new_timer()

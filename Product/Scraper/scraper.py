@@ -62,7 +62,8 @@ class _Scraper():
 
 class Scraper(_Scraper):
     def __init__(self, _url, _matchingDict):
-        super().__init__(_url,_matchingDict)
+        self.requester = Request(_url)
+        self.parser = Parser("No html retrived yet!", _matchingDict)
 
     def scrape(self):
         self.request()

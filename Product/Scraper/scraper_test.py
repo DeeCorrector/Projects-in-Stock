@@ -3,7 +3,7 @@ from scraper import Scraper
 
 class TestScraper(ut.TestCase):
     def test_init(self):
-        instance = Scraper('http://www.google.com/', {})
+        instance = Scraper('http://www.diku.dk/', {})
         try:
             instance.requester
         except AttributeError:

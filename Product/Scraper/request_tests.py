@@ -16,7 +16,7 @@ class Test_IRequest(ut.TestCase):
 
 class Test_Request(ut.TestCase):
     def setUp(self):
-        self.instance = Request("http://www.google.com/")
+        self.instance = Request("http://www.diku.dk/")
 
     def test_contains_valid_fields(self):
         try:
@@ -35,10 +35,12 @@ class Test_Request(ut.TestCase):
         if temp==None:
             self.fail("Request.get_html() returns \'None\'")
 
-        if not type(temp)==str:
+        if not type(temp)==unicode:
             self.fail("Request.get_html() returns a value that is not a string")
 
-        if "<!DOCTYPE" not in temp: self.fail("Request.get_html() returns something that does not contain \'<!DOCTYPE\'")
+
+        if "<!DOCTYPE" not in temp:
+            self.fail("Request.get_html() returns something that does not contain \'<!DOCTYPE\'")
 
 
 if __name__ == "__main__":
