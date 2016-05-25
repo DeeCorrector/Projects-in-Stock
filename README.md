@@ -7,6 +7,6 @@ Projekt: Projects-in-Stock
 
 Mads, Herluf & Philip.
 
-The folder "Documentation" will hold logbooks, the distribution of work.
+The folder "Documentation" will contain logbooks, the distribution of work.
 
-The folder "Product" will hold all the source code for our program and webpage. 
+The folder "Product" will contain all the source code for our program and webpage. 
