@@ -66,6 +66,7 @@ class Test_ScrapeCommand(ut.TestCase):
         #create_new_counselor
         #append_url_format
         #exists_in_database
+
     #__init__: inits
     #__init__: contains _executionTime
     #execute: if the database is empty, it should not be at the end
@@ -73,11 +74,39 @@ class Test_ScrapeCommand(ut.TestCase):
     #execute: if the database contains all information, it should be the same as in the end
 
 #CommandFactory
+class Test_CommandFactory(ut.TestCase):
+    def mock_target(self):
+        pass
+
     #new_ScrapeCommand: returns a ScrapeCommand
+    def test_returns_scrape_command(self):
+        self.instance = CommandFactory()
+        command = self.instance.new_ScrapeCommand(datetime(9999,9,9), "http://example.com", {"content": ".*"}, None)
+        self.assertTrue(type(command), ScrapeCommand)
+
     #new_ScrapeCommand: returns a ScrapeCommand with given _execuntionTIme
+    def test_returns_correct_executiontime(self):
+        self.instance = CommandFactory()
+        command = self.instance.new_ScrapeCommand(datetime(9999,9,9), "http://example.com", {"content": ".*"}, None)
+        self.assertTrue(command.executionTime, datetime(9999,9,9))
+
     #new_ScrapeCommand: returns a ScrapeCommand with given _url
+    def test_returns_correct_url(self):
+        self.instance = CommandFactory()
+        command = self.instance.new_ScrapeCommand(datetime(9999,9,9), "http://example.com", {"content": ".*"}, None)
+        self.assertTrue(command.url, "http://example.com")
+
     #new_ScrapeCommand: returns a ScrapeCommand with given _matchDict
+    def test_returns_correct_matchdict(self):
+        self.instance = CommandFactory()
+        command = self.instance.new_ScrapeCommand(datetime(9999,9,9), "http://example.com", {"content": ".*"}, None)
+        self.assertTrue(command.matchingDict, {"content": ".*"})
+
     #new_ScrapeCommand: returns a ScrapeCommand with given _target
+    def test_returns_correct_target(self):
+        self.instance = CommandFactory()
+        command = self.instance.new_ScrapeCommand(datetime(9999,9,9), "http://example.com", {"content": ".*"}, self.mock_target)
+        self.assertTrue(command.target, self.mock_target)
 
 
 #Adapter

@@ -3,6 +3,7 @@ unit:
 	python Scraper/parser_tests.py
 	python Scraper/scraper_test.py
 	python CommandManager/CommandManager_test.py
+	python Website/manage.py test Website
 
 
 acceptance:
