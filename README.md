@@ -10,14 +10,9 @@ make -f maketest [unit | acceptance | integration]
 ```
 
 # Projects-in-Stock
-Projects-in-Stock Softwareudvikling
+Københavns Universitet - Datalogisk Institut - Softwareudvikling - Projects-in-Stock
 
-Mads, Herluf & Philip
-
-Københavns Universitet - Datalogisk Institut.
-
-
-
+Mads, Herluf & Philip  
 
 ## General
 Compiler: **Python 2.7**
