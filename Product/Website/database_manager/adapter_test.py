@@ -2,6 +2,7 @@ import os
 import sys
 import unittest as ut
 from datetime import datetime
+import copy
 #dependencies for adapter
 #Finding the parent directory
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +12,7 @@ sys.path.append(base_dir +"Website/")
 os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
 import django
 django.setup()
-
+from web.models import Counselor
 from adapter import ScrapeCommand, FindNewCounselorsCommand, CommandFactory, Adapter
 
 #Testing ScrapeCommand
@@ -66,9 +67,16 @@ class Test_ScrapeCommand(ut.TestCase):
         #create_new_counselor
         #append_url_format
         #exists_in_database
-
+class Test_FindNewCounselorsCommand(ut.TestCase):
+    def setUp(self):
+        self.executionTime = datetime(9999,9,9)
     #__init__: inits
+    def test_inits(self):
+        self.instance = FindNewCounselorsCommand(self.executionTime)
     #__init__: contains _executionTime
+    def test_contains_executionTime(self):
+        self.instance = FindNewCounselorsCommand(self.executionTime)
+        self.assertTrue((self.instance.executionTime == self.executionTime ), True)
     #execute: if the database is empty, it should not be at the end
     #execute: if the database is missing => 1 counselor(s) should be updated with these
     #execute: if the database contains all information, it should be the same as in the end
@@ -110,14 +118,34 @@ class Test_CommandFactory(ut.TestCase):
 
 
 #Adapter
+class Test_Adapter(ut.TestCase):
     #The following methods will not be tested due to being a part of the implementation:
         #updatedb
         #convert_bad_encodings
 
     #__init__: inits
+    def test_inits(self):
+        self.instance = Adapter()
+        self.assertTrue(type(self.instance),Adapter)
 
     #update_all_now: every counselor is updated
     #update_all_now: if a counselor is outdated it should be updated at end
+    #def test_updates_outdated_counselor(self):
+    #    self.instance = Adapter()
+    #    mockCounselor = Counselor()
+    #    mockCounselor.name = "name"
+    #    mockCounselor.email = "email"
+    #    mockCounselor.office = "office"
+    #    mockCounselor.studyArea = "study area"
+    #    mockCounselor.url = "http://diku.dk/english/staff/vip/?pure=en/persons/172243"
+    #    mockCounselor.save()
+
+    #    beforeCounselor = copy.deepcopy(mockCounselor)
+    #    self.instance.update_all_now()
+    #    afterCounselor = copy.deepcopy(mockCounselor)
+    #    mockCounselor.delete()
+    #    self.assertTrue((beforeCounselor != afterCounselor),True)
+
 
     #update_now: the given counselor is updated
     #update_now: if the given counselor is outdated it should be updated at end
