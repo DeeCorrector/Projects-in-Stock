@@ -49,8 +49,7 @@ class ScrapeCommand (ICommand):
 #Searches KU's page for new counselors using the ScrapeCommand. If it finds new counselors they're added to the database
 class FindNewCounselorsCommand (ICommand):
     def __init__(self,_executionTime):
-        super().__init__(_executionTime)
-
+        self.executionTime = _executionTime
         #The site listing all of the employees on Diku
         self.url = "http://diku.dk/english/staff/"
 
