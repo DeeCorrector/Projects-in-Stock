@@ -1,0 +1,83 @@
+/*Generics*/
+.right {
+  float : right; 
+}
+
+#header-wrap {
+  border-bottom: solid 1px;
+  background-color : rgba(128, 128, 128, 0.1);
+  border-color: rgba(128, 128, 128, 0.5);
+  padding-top : 5px;
+  padding-bottom : 5px;
+}
+
+html, body {
+  height : 100%;
+}
+
+#menu {
+  margin-top : 43px;
+}
+
+.nav-pills li a{
+  background-color: #337AB7;
+  color : #fff;
+  transition : color 0.5s;
+  -webkit- transition : color 0.5s;
+}
+
+.nav-pills li a:hover {
+  background-color: #fff;
+  color : rgb(51, 51, 51);
+}
+
+#menu::before {
+  /*content : "Menu"*/
+}
+
+.container {
+  background-color: rgba(128, 128, 128, 0.21);
+}
+
+#footer {
+  background-color : rgba(128, 128, 128, 0.1);
+  border-top : solid 1px;
+  border-color : rgba(128, 128, 128, 0.5);
+  margin-top : 30px;
+}
+
+#content .nav-pills li a{
+  background-color : #337ab7;
+  margin-right : 20px;
+}
+
+.info-box {
+  background-color : #eee;
+  border-radius: 6px;
+}
+
+#edit_submenu {
+  margin-left : -15px;
+  margin-right : -15px;
+  border-radius : 0px;
+  border-color : rgba(128, 128, 128, 0.5)  !important;
+  border-top: none;
+  border-bottom: solid 1px;
+  border-right : none;
+  border-left : none;
+
+}
+
+.btn-edit {
+  width : 50px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.btn-delete {
+  background-color: #B73333 !important;
+  width : 50px;
+  border: none;
+  border-radius: 5px;
+}

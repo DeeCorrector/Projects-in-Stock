@@ -1,0 +1,86 @@
+/*index:
+0 reset
+1 header area*/
+
+* {
+  font-family : arial;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background-color: lightgrey;
+}
+/*header area*/
+#header{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 60px;
+  width: 100%;
+  background-color: grey;
+}
+
+#header-title h1{
+  -webkit-text-stroke: 1px grey;
+  font-size : 30px;
+  color: white;
+  float:left;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  /*background-color: darkgrey;*/
+  padding: 15px 20px 30px 20px;
+}
+
+#header-menu{
+  position: absolute;
+  right:0px;
+  top:0px;
+  bottom:0px;
+  padding: 20px 20px 20px 20px;
+}
+
+.menu-item{
+  height: 100%;
+  margin-right: 25px;
+  display: inline;
+
+}
+
+.menu-item a::before {
+  content: " | "
+}
+.menu-item a{
+  font-size: 20px;
+  font-family: Arial;
+  color: #fff;
+  height: 100%;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.menu-item a:hover {
+  color : darkgrey;
+}
+
+/*header area end*/
+
+/*content area*/
+#child{
+  margin-top: 60px;
+}
+
+.content {
+  margin : 20px;
+  padding-top : 20px;
+}
+
+.big-image{
+  background-image : url("http://www.citylit.ac.uk/media/catalog/category/academic_writing.jpg");
+  background-size : 1900px auto;
+  width : 100%;
+  height : 300px;
+  background-color : red;
+}
+/*content area end*/
