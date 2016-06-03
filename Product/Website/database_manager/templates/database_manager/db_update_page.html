@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-<h1><small>mas sucs</small></h1>
-<form action='/update/database/specific/' method='post'>{% csrf_token %}
-  {%for c in counselors%}
-   <input type="submit" id="counselorname" name="counselorname" value="{{c.name}}" /><br />
-  {%endfor%}
-</form>
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
 
-</html>
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<script language="JavaScript">
+function toggle(t) {
+  checkboxes = document.getElementsByName('counselor');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = t;
+  }
+}
+</script>
+
+<style>
+tr:nth-child(even) {
+  background-color:#f9f9f9;
+}
+</style>
+<h1>Update manager</h1>
+
+<table>
+   <table width="410">
+     <tr style="border : none; margin: none; color:white; background-color:#79aec8">
+        <th>Counselors</th>
+        <td><span style="float: right;"><button onClick="toggle(true)" /> Select all</button> <button onClick="toggle(false)" /> Deselect all </button></span></td>
+     </tr>
+   </table>
+   <div style="height : 400px; width : 410px; overflow:auto; overflow-x: hidden;">
+     <table width="400">
+        {%for c in counselors%}
+        <tr>
+        <td>
+        <input type="checkbox" name="counselor" value="{{c.url}}" style="margin-right: 10px;">{{c.name}}</td></tr>
+        {%endfor%}
+     </table>
+   </div>
+</table>
+{%endblock%}

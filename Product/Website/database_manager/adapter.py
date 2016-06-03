@@ -27,7 +27,7 @@ counselorMatchDict = {"name": "<span class=\"person\">.*</span>",
                         "office": "<div class=\"address\"><p>.*</p></div>",
                         "studyarea": "<h2 class=\"title\">M.*</h2><ul class=\"relations organisations\">.*</ul>"}
 
-employeeListMatchDict = {"url":"(\?pure=en\/persons+\/[0-9]+).*</a></td><td valign='top'>Professor"}
+employeeListMatchDict = {"url":"\?pure=en\/persons+\/[0-9]+"}
 
 
 #Scrapes a single url with a given dict at a given time.
@@ -62,14 +62,14 @@ class FindNewCounselorsCommand (ICommand):
         scrapeResult = self.scrapeCommand.execute()
         urlDictonary = self.append_url_format(scrapeResult)
 
-        for key in url_dictonary:
-            url_list = url_dictonary[key]
+        for key in urlDictonary:
+            url_list = urlDictonary[key]
             for url in url_list:
                 if not self.exists_in_database(url):
                     Scraper = CommandFactory().new_ScrapeCommand(datetime.datetime.now(),url,counselorMatchDict, None)
-                    self.create_new_counselor(Scraper.execute())
+                    self.create_new_counselor(Scraper.execute(),url)
 
-    def create_new_counselor(self,infoDict):
+    def create_new_counselor(self,infoDict,url):
         def unlisitfy(_dict):
             i = _dict.copy()
             for key in i:
@@ -86,6 +86,7 @@ class FindNewCounselorsCommand (ICommand):
         dbTarget.email = infoDict["email"]
         dbTarget.office = infoDict["office"]
         dbTarget.studyArea = infoDict["studyarea"]
+        dbTarget.url = url
         dbTarget.save()
 
     def append_url_format(self,inputDictonary):
@@ -119,12 +120,12 @@ class Adapter():
 
     def convert_bad_encodings(self, infoDict):
         symbolDict = {
-            u'&#248;': 'ø',
-            u'&#216;': 'Ø',
-            u'&#229;': 'å',
-            u'&#197;':'Å',
-            u'&#230;':'æ',
-            u'&#198;':'Æ'
+            '&#248;': 'ø',
+            '&#216;': 'Ø',
+            '&#229;': 'å',
+            '&#197;':'Å',
+            '&#230;':'æ',
+            '&#198;':'Æ'
         }
         for symbol in translation_dict:
             for key in infoDict:
