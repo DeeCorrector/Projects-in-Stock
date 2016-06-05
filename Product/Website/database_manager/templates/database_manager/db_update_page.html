@@ -23,24 +23,64 @@ function toggle(t) {
 tr:nth-child(even) {
   background-color:#f9f9f9;
 }
+tr:nth-child(odd) {
+  background-color:white;
+}
+
+#cmd-creator-wrapper {
+  background-color: red;
+  height : 438px;
+  width : 1100px;
+  display: inline-block;
+}
+
+#cmd-creator-table {
+  float : left;
+  background-color: white;
+  display: inline-block;
+}
+
+#cmd-creator-form {
+  background-color: #f9f9f9;
+  position: absolute;
+  margin-top: 127px;
+  margin-left : 410px;
+  padding-left : 8px;
+  padding-right: 8px;
+  top : 0px;
+  bottom : 44px;
+
+}
 </style>
 <h1>Update manager</h1>
 
-<table>
-   <table width="410">
-     <tr style="border : none; margin: none; color:white; background-color:#79aec8">
-        <th>Counselors</th>
-        <td><span style="float: right;"><button onClick="toggle(true)" /> Select all</button> <button onClick="toggle(false)" /> Deselect all </button></span></td>
-     </tr>
-   </table>
-   <div style="height : 400px; width : 410px; overflow:auto; overflow-x: hidden;">
-     <table width="400">
-        {%for c in counselors%}
-        <tr>
-        <td>
-        <input type="checkbox" name="counselor" value="{{c.url}}" style="margin-right: 10px;">{{c.name}}</td></tr>
-        {%endfor%}
-     </table>
-   </div>
-</table>
+<div id="cmd-creator-wrapper">
+  <table id="cmd-creator-table">
+    <table width="410">
+      <tr style="border : none; margin: none; color:white; background-color:#79aec8">
+          <th>Counselors</th>
+          <td><span style="float: right;"><button onClick="toggle(true)" /> Select all</button> <button onClick="toggle(false)" /> Deselect all </button></span></td>
+      </tr>
+    </table>
+    <div style="height : 400px; width : 410px; overflow:auto; overflow-x: hidden;">
+      <table width="400">
+          {%for c in counselors%}
+          <tr>
+            <td>
+              <input type="checkbox" name="counselor" value="{{c.url}}" style="margin-right: 10px;">{{c.name}}
+            </td>
+          </tr>
+          {%endfor%}
+      </table>
+    </div>
+ </table>
+ <div id="cmd-creator-form">
+   <h3>Select time for update</h3>
+  <input type="datetime-local" value="Time"/>
+  <br />
+  <br />
+  <button type="submit">Add to que</button>
+ </div>
+</div>
+
 {%endblock%}
