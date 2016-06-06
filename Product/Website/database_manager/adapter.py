@@ -111,6 +111,10 @@ class CommandFactory():
     def new_ScrapeCommand(self,_executionTime,_url,_matchDict,_target):
         command = ScrapeCommand(_executionTime,_url,_matchDict,_target)
         return command
+        
+    def new_FindNewCounselorsCommand(self,_executionTime):
+        command = FindNewCounselorsCommand(_executionTime)
+        return command
 
 class Adapter():
     def __init__(self):

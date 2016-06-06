@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from web.models import Counselor
-from .adapter import Adapter, FindNewCounselorsCommand
+from .adapter import Adapter, CommandFactory
 import datetime
 
 adapter = Adapter()
@@ -18,6 +18,7 @@ def update_database_view(request):
 
         return render(request, 'database_manager/db_update_page.html',context)
 
+#Used for choosing the action to perform based on request.POST queryDict
 def update_database_post(request):
     #if information is being posted
     if request.method == "POST":
@@ -41,6 +42,7 @@ def update_specific_counselor(request):
     return redirect("/admin/")
 
 def find_new_counselors(request):
-    test = FindNewCounselorsCommand(datetime.datetime.now())
-    test.execute()
+    cmdFactory = CommandFactory()
+    cmd = cmdFactory.new_FindNewCounselorsCommand(datetime.datetime.now())
+    cmd.execute()
     return redirect("/admin/")
