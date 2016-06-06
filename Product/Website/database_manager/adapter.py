@@ -104,9 +104,6 @@ class FindNewCounselorsCommand (ICommand):
             counselor = None
         return counselor
 
-class UpdateAllCounselors(ICommand):
-    pass
-
 class CommandFactory():
     def new_ScrapeCommand(self,_executionTime,_url,_matchDict,_target):
         command = ScrapeCommand(_executionTime,_url,_matchDict,_target)
