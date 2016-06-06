@@ -42,12 +42,40 @@ tr:nth-child(odd) {
   border : 2px solid #eee;
 }
 
+#command-que-wrapper {
+  display : inline-block;
+  float : left;
+  margin-left : 35px;
+  position: relative;
+  top : -46px;
+}
+
+#command-que {
+  padding: 8px;
+  background-color: #f9f9f9;
+  border : 2px solid #eee;
+}
+
+#clear-que {
+  display : inline-block;
+  padding: 8px;
+  background-color: #f9f9f9;
+  width : 390px;
+  border : 2px solid #eee;
+  margin-top : 10px;
+}
+
 #cmd-creator-wrapper {
   display: inline-block;
   width : 410px;
   background-color: #f9f9f9;
   border : 2px solid #eee;
   float: left;
+}
+
+#all-wrap {
+  width : 1280px;
+  display: inline-block;
 }
 
 #cmd-creator-table {
@@ -85,12 +113,27 @@ tr:nth-child(odd) {
   border-color: #325A6D;
 }
 
-#all-wrap {
-  width : 1200px;
+#command-table{
+  border : solid 2px #eee;
+}
+
+#delete-button {
+  background-color : transparent;
+  border: none;
+  color: #C11212;
+}
+
+#delete-button:hover {
+  color: rgba(193, 18, 18, 0.46);
+}
+
+button {
+    cursor:pointer;
 }
 </style>
 <h1>Update manager</h1>
-<p>This page is not compatible with Firefox</p>
+<p>This page is not fully compatible with Firefox. <br />If you are using Firefox use the following format for time input-fields: "YYYY-MM-DDTHH:mm".<br />
+  Example: "2017-12-02T12:59" </p>
 {% if counselorerror%}
   <h3 style="color: red;">Error: Please select counselor(s) who should be updated to schedule</h3>
 {%endif%}
@@ -133,12 +176,47 @@ tr:nth-child(odd) {
   <h2>Other actions</h2>
   <div id="find-new-cmd">
     <h3>Find new counselors</h3>
+    <p>This will automatically explore if any new counselors should be added to the database</p>
       <form method="post" action="post">{% csrf_token %}
         <input type="datetime-local" name="Datetime" required/><br />
         <input type="hidden" name="Action" value="schedule-findnewcmd">
         <button type="submit">Schedule</button>
       </form>
     </div>
+
+      <div id="clear-que">
+        <h3>Clear command Que</h3>
+        <p>This will remove all commands from current command que</p>
+        <form action="post" method="POST">{% csrf_token %}
+          <button>
+            Click to clear
+          </button>
+          <input type="hidden" name="Action" value="clear-que" />
+        </form>
+        </div>
+</div>
+
+<div id="command-que-wrapper">
+  <h2>Command Que</h2>
+  <div id="command-que">
+  <h3>Edit command que</h3>
+  <p>Click the red cross to remove command</p>
+    <div class="cmd-card">
+        <table id="command-table">
+          {%for c in commandque%}
+            <tr>
+              <form action="post" method="POST">{% csrf_token %}
+                <td>{{c.name}}</td>
+                <td>{{c.executionTime}}</td>
+                <input type="hidden" name="Action" value="delete-cmd" />
+                <td style="border-left: solid 3px #eee;"><button name="Id" value="{{c.id}}" id="delete-button">X</b></td>
+              </form>
+            </tr>
+          {%endfor%}
+        </table>
+    </div>
+
+  </div>
 </div>
 </div>
 

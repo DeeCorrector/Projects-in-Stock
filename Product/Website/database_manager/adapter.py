@@ -141,8 +141,8 @@ class Adapter():
         command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.save_counselor_info)
         self.myCommandmanager.enqueue_command(command)
 
-    def schedule_update(self, datetime, counselor):
-        command = self.myCommandFactory.new_ScrapeCommand(datetime,counselor.url,counselorMatchDict,self.save_counselor_info)
+    def schedule_update(self, datetime, counselorUrl):
+        command = self.myCommandFactory.new_ScrapeCommand(datetime,counselorUrl,counselorMatchDict,self.save_counselor_info)
         self.myCommandmanager.enqueue_command(command)
 
     def save_counselor_info(self, infoDict, counselorUrl):
@@ -154,12 +154,23 @@ class Adapter():
             dbTarget.office = infoDict["office"][0]
             dbTarget.studyArea = infoDict["studyarea"][0]
             dbTarget.save()
+
     def find_new_counselors(self, executionTime):
         cmd = self.myCommandFactory.new_FindNewCounselorsCommand(executionTime)
         self.myCommandmanager.enqueue_command(cmd)
 
-    def get_scheduled_updates(self):
-        return self.myCommandmanager.commandQueue
+    def get_scheduled_updates_info(self):
+        info_list = []
+        id = 0
+        for cmd in self.myCommandmanager.commandQueue:
+            command_info_dict = {
+            "id": id,
+            "name": str(type(cmd).__name__),
+            "executionTime": str(cmd.executionTime)
+            }
+            info_list.append(command_info_dict)
+            id += 1
+        return info_list
 
     def delete_scheduled_update(self,cmdIndex):
         self.myCommandmanager.delete_command(cmdIndex)

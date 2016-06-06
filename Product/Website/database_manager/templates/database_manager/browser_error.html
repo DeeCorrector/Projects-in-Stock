@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<h1>An error has occured!</h1>
+<h2>What went wrong:</h2>
+<h3>Your browser does not properly support the input type datetime-local. Are you using Firefox?</h3>
+<h2>Recommended solution:</h2>
+<h3>Open the page in one of the following browsers:
+<ul>
+  <li>Internet Explorer</li>
+  <li>Chrome</li>
+  <li>Safari</li>
+  <li>Opera</li>
+</ul>
+<h2>or</h2>use the following format for time input fields:
+"YYYY-MM-DDTHH:mm".<br />
+Example: "2017-2-2T12:59"
+</h3>
+{%endblock%}
