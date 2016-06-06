@@ -111,7 +111,7 @@ class CommandFactory():
     def new_ScrapeCommand(self,_executionTime,_url,_matchDict,_target):
         command = ScrapeCommand(_executionTime,_url,_matchDict,_target)
         return command
-        
+
     def new_FindNewCounselorsCommand(self,_executionTime):
         command = FindNewCounselorsCommand(_executionTime)
         return command
@@ -137,18 +137,18 @@ class Adapter():
 
     def update_all_now(self):
         for counselor in Counselor.objects.all():
-            command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.updatedb)
+            command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.save_counselor_info)
             self.myCommandmanager.enqueue_command(command)
 
     def update_now(self, counselor):
-        command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.updatedb)
+        command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.save_counselor_info)
         self.myCommandmanager.enqueue_command(command)
 
     def schedule_update(self, datetime, counselor):
-        command = self.myCommandFactory.new_ScrapeCommand(datetime,counselor.url,counselorMatchDict,self.updatedb)
+        command = self.myCommandFactory.new_ScrapeCommand(datetime,counselor.url,counselorMatchDict,self.save_counselor_info)
         self.myCommandmanager.enqueue_command(command)
 
-    def updatedb(self, infoDict, counselorUrl):
+    def save_counselor_info(self, infoDict, counselorUrl):
         dbTarget = Counselor.objects.get(url = counselorUrl)
         infoDict = convert_bad_encodings(infoDict)
         if dbTarget != None:
