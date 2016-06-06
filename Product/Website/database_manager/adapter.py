@@ -154,6 +154,9 @@ class Adapter():
             dbTarget.office = infoDict["office"][0]
             dbTarget.studyArea = infoDict["studyarea"][0]
             dbTarget.save()
+    def find_new_counselors(self, executionTime):
+        cmd = self.myCommandFactory.new_FindNewCounselorsCommand(executionTime)
+        self.myCommandmanager.enqueue_command(cmd)
 
     def get_scheduled_updates(self):
         return self.myCommandmanager.commandQueue

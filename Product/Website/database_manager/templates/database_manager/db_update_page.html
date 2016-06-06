@@ -28,11 +28,29 @@ tr:nth-child(odd) {
   background-color:white;
 }
 
+#other-commands-wrapper {
+  display: inline-block;
+  position: relative;
+  top : -46px;
+  margin-left : 35px;
+}
+
+#find-new-cmd {
+  padding: 8px;
+  background-color: #f9f9f9;
+  width : 390px;
+  border : 2px solid #eee;
+}
+
 #cmd-creator-wrapper {
+  display: inline-block;
+  width : 410px;
+  background-color: #f9f9f9;
+  border : 2px solid #eee;
+  float: left;
 }
 
 #cmd-creator-table {
-  float : left;
   background-color: white;
 }
 
@@ -40,7 +58,6 @@ tr:nth-child(odd) {
   padding: 8px;
   background-color: #f9f9f9;
   width : 390px;
-  border : 2px solid #eee;
 
 }
 
@@ -67,13 +84,19 @@ tr:nth-child(odd) {
 .a-button:hover {
   border-color: #325A6D;
 }
+
+#all-wrap {
+  width : 1200px;
+}
 </style>
 <h1>Update manager</h1>
+<p>This page is not compatible with Firefox</p>
 {% if counselorerror%}
   <h3 style="color: red;">Error: Please select counselor(s) who should be updated to schedule</h3>
 {%endif%}
+<div id="all-wrap">
+<h2>Schedule counselor(s) update</h2>
 <div id="cmd-creator-wrapper">
-
   <table id="cmd-creator-table">
     <table width="410">
       <tr style="border : none; margin: none; color:white; background-color:#79aec8">
@@ -103,9 +126,21 @@ tr:nth-child(odd) {
    <br />
   <button type="submit" value="que">Schedule update</button>
  </div>
-
  </form>
-
 </div>
+
+<div id="other-commands-wrapper">
+  <h2>Other actions</h2>
+  <div id="find-new-cmd">
+    <h3>Find new counselors</h3>
+      <form method="post" action="post">{% csrf_token %}
+        <input type="datetime-local" name="Datetime" required/><br />
+        <input type="hidden" name="Action" value="schedule-findnewcmd">
+        <button type="submit">Schedule</button>
+      </form>
+    </div>
+</div>
+</div>
+
 
 {%endblock%}
