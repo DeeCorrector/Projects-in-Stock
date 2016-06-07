@@ -120,16 +120,19 @@ class Adapter():
 
     def convert_bad_encodings(self, infoDict):
         symbolDict = {
-            '&#248;': 'ø',
-            '&#216;': 'Ø',
-            '&#229;': 'å',
-            '&#197;':'Å',
-            '&#230;':'æ',
-            '&#198;':'Æ'
+            u'&#248;': u'ø',
+            u'&#216;': u'Ø',
+            u'&#229;': u'å',
+            u'&#197;': u'Å',
+            u'&#230;': u'æ',
+            u'&#198;': u'Æ'
         }
         for symbol in symbolDict:
             for key in infoDict:
-                infoDict[key] = infoDict[key].replace(symbol, symbolDict[symbol])
+                if not infoDict[key] == []:
+                    infoDict[key] = [x.replace(symbol, symbolDict[symbol]) for x in infoDict[key] ]
+                else:
+                    infoDict[key] = ["no matches"]
         return infoDict
 
     def update_all_now(self):

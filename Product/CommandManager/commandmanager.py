@@ -3,7 +3,7 @@ from threading import Timer
 import os
 
 
-class ICommand():
+class ICommand(object):
     def __init__(self, _executionTime):
         self.executionTime = _executionTime
 
@@ -24,8 +24,8 @@ class CommandManager():
     #Executes the first command in the commandQueue and removes it from the queue
     def execute_command(self):
         cmd = self.commandQueue[0]
-        cmd.execute()
         self.commandQueue.remove(cmd)
+        cmd.execute()
 
     def main_loop(self):
         if len(self.commandQueue) > 0:
