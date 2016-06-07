@@ -1,7 +1,7 @@
 {%extends "web/master.html" %}
 {% block content%}
 <title>Counselor overview</title>
-<h1>list of councelors</h1>
+<h1>List of councelors</h1>
   <div class="list-group">
   {% for counselor in counselors %}
     <a class="list-group-item" href="{% url 'counselor_detail' counselor.id %}">{{ counselor.name }}</a>
