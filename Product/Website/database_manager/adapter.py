@@ -147,7 +147,7 @@ class Adapter():
 
     def save_counselor_info(self, infoDict, counselorUrl):
         dbTarget = Counselor.objects.get(url = counselorUrl)
-        infoDict = convert_bad_encodings(infoDict)
+        infoDict = self.convert_bad_encodings(infoDict)
         if dbTarget != None:
             dbTarget.name = infoDict["name"][0]
             dbTarget.email = infoDict["email"][0]
