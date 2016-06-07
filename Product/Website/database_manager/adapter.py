@@ -29,6 +29,23 @@ counselorMatchDict = {"name": "<span class=\"person\">.*</span>",
 
 employeeListMatchDict = {"url":"\?pure=en\/persons+\/[0-9]+"}
 
+#converts bad ascii encodings to unicode
+def convert_bad_encodings(infoDict):
+    symbolDict = {
+        u'&#248;': u'ø',
+        u'&#216;': u'Ø',
+        u'&#229;': u'å',
+        u'&#197;': u'Å',
+        u'&#230;': u'æ',
+        u'&#198;': u'Æ'
+    }
+    for symbol in symbolDict:
+        for key in infoDict:
+            if not infoDict[key] == []:
+                infoDict[key] = [x.replace(symbol, symbolDict[symbol]) for x in infoDict[key] ]
+            else:
+                infoDict[key] = ["no matches"]
+    return infoDict
 
 #Scrapes a single url with a given dict at a given time.
 class ScrapeCommand (ICommand):
@@ -78,7 +95,7 @@ class FindNewCounselorsCommand (ICommand):
                     i[key] = ""
             return i
 
-        infoDict = unlisitfy(infoDict)
+        infoDict = unlisitfy(convert_bad_encodings(infoDict))
 
         dbTarget = Counselor()
         dbTarget.name = infoDict["name"]
@@ -118,23 +135,6 @@ class Adapter():
         self.myCommandmanager = CommandManager()
         self.myCommandFactory = CommandFactory()
 
-    def convert_bad_encodings(self, infoDict):
-        symbolDict = {
-            u'&#248;': u'ø',
-            u'&#216;': u'Ø',
-            u'&#229;': u'å',
-            u'&#197;': u'Å',
-            u'&#230;': u'æ',
-            u'&#198;': u'Æ'
-        }
-        for symbol in symbolDict:
-            for key in infoDict:
-                if not infoDict[key] == []:
-                    infoDict[key] = [x.replace(symbol, symbolDict[symbol]) for x in infoDict[key] ]
-                else:
-                    infoDict[key] = ["no matches"]
-        return infoDict
-
     def update_all_now(self):
         for counselor in Counselor.objects.all():
             command = self.myCommandFactory.new_ScrapeCommand(datetime.datetime.now(),counselor.url,counselorMatchDict,self.save_counselor_info)
@@ -150,7 +150,7 @@ class Adapter():
 
     def save_counselor_info(self, infoDict, counselorUrl):
         dbTarget = Counselor.objects.get(url = counselorUrl)
-        infoDict = self.convert_bad_encodings(infoDict)
+        infoDict = convert_bad_encodings(infoDict)
         if dbTarget != None:
             dbTarget.name = infoDict["name"][0]
             dbTarget.email = infoDict["email"][0]
