@@ -127,7 +127,7 @@ class Adapter():
             '&#230;':'æ',
             '&#198;':'Æ'
         }
-        for symbol in translation_dict:
+        for symbol in symbolDict:
             for key in infoDict:
                 infoDict[key] = infoDict[key].replace(symbol, symbolDict[symbol])
         return infoDict
