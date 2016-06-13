@@ -6,6 +6,7 @@ python manage.py runserver
 ```
 
 Running a test suite
+- Navigate to the folder containing the "maketest" file. Then type:
 ```
 make -f maketest [unit | acceptance | integration]
 ```
@@ -20,11 +21,11 @@ Compiler: **Python 2.7**
 
 The following modules are dependencies of the project and will need to be installed.
 - `Django`: Framework for creating webapplications
-- `Requests`: A module for requesting http responses
+- `Requests`: A module for requesting HTTP responses
 - `Robot`: Framework for acceptancetesting
 - `Selenium2Libary`: Browser automation for acceptancetesting
 
-The following commands will install all dependencies:
+The following commands will install all dependencies needed to execute run the website plus running the testsuite:
 ```
 $ pip install django
 $ pip install requests
