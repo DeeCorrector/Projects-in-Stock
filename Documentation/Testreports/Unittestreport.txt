@@ -1,0 +1,32 @@
+python Scraper/request_tests.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.134s
+
+OK
+python Scraper/parser_tests.py
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
+python Scraper/scraper_test.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+python CommandManager/CommandManager_test.py
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.004s
+
+OK
+python Website/manage.py test Website
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 1.123s
+
+OK
+Creating test database for alias 'default'...
+Destroying test database for alias 'default'...

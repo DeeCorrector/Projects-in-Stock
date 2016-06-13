@@ -1,0 +1,6 @@
+python Website/database_manager/adapter_test.py
+...............
+----------------------------------------------------------------------
+Ran 15 tests in 0.256s
+
+OK

@@ -74,6 +74,7 @@ class Test_CommandManager(ut.TestCase):
 
         self.assertFalse((startLength == endLength), False)
         self.instance.myTimer.cancel()
+
     #delete_command: commandQueue does not contain the deleted command
     def test_que_excludes_command(self):
         self.instance = CommandManager()
@@ -86,6 +87,7 @@ class Test_CommandManager(ut.TestCase):
 
         self.assertFalse(endContains,startContains)
         self.instance.myTimer.cancel()
+
     #create_new_timer: sets a new timer
     def test_sets_new_timer(self):
         self.instance = CommandManager()
