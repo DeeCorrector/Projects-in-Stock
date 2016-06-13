@@ -1,5 +1,5 @@
 ## Commands cheatsheet
-Running a local testserver:
+Running a local testserver
 - Navigate to the folder containing the "manage.py" file. Then type:
 ```
 python manage.py runserver
