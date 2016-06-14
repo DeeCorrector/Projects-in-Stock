@@ -1,4 +1,4 @@
-## Commands cheatsheet
+## Command cheatsheet
 Running a local testserver
 - Navigate to the folder containing the "manage.py" file. Then type:
 ```
