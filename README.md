@@ -58,3 +58,4 @@ There are three different suites:
 - `acceptance`: Automated acceptancetesting using the robot framework. 
   - **NB.** A local testserver must be active in *another* terminal window. 
 
+*Please note that this project was written in Python, yet GitHub indicates over 90% of the code on this repository is HTML. This is because our acceptancetestingframework generates several HTML-pages as the result of the testing, with the results from testing.  
