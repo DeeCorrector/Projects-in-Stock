@@ -153,7 +153,7 @@ button {
           {%for c in counselors%}
           <tr>
             <td>
-              <input type="checkbox" name="Counselor" value="{{c.url}}" style="margin-right: 10px;">{{c.name}}
+              <input type="checkbox" name="Counselor" value="{{c.url}}" style="margin-right: 10px;"/>{{c.name}}
             </td>
           </tr>
           {%endfor%}
@@ -163,7 +163,7 @@ button {
 
  <div id="cmd-creator-form">
    <h3>Select time for update</h3>
-   <input id="datetime-input" type="datetime-local" name="Datetime" required>
+   <input id="datetime-input" type="datetime-local" name="Datetime" required/>
    <input name="Action" type="hidden" value="schedule" />
    <br />
    <br />
@@ -179,7 +179,7 @@ button {
     <p>This will automatically explore if any new counselors should be added to the database</p>
       <form method="post" action="post">{% csrf_token %}
         <input type="datetime-local" name="Datetime" required/><br />
-        <input type="hidden" name="Action" value="schedule-findnewcmd">
+        <input type="hidden" name="Action" value="schedule-findnewcmd"/>
         <button type="submit">Schedule</button>
       </form>
     </div>
